@@ -57,9 +57,15 @@ def postprocess(raw_png: bytes, size: int = 256, tolerance: int = 40, pad_ratio:
 # ---------- Gemini call ----------
 
 def _key() -> str:
+    """The API key: from the environment, else from an untracked .env at the repo root."""
     key = os.environ.get("GOOGLE_GENERATIVE_AI_API_KEY")
+    env_file = ROOT / ".env"
+    if not key and env_file.exists():
+        for line in env_file.read_text().splitlines():
+            if line.startswith("GOOGLE_GENERATIVE_AI_API_KEY="):
+                key = line.split("=", 1)[1].strip().strip("'\"")
     if not key:
-        sys.exit("GOOGLE_GENERATIVE_AI_API_KEY is not set. Export it and re-run.")
+        sys.exit("GOOGLE_GENERATIVE_AI_API_KEY is not set. Export it (or put it in .env) and re-run.")
     return key
 
 

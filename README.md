@@ -19,6 +19,7 @@ Live at https://widgets.nicksmith.software.
 GOOGLE_GENERATIVE_AI_API_KEY=… python3 art/gen_icons.py keylight
 ```
 
+Or put `GOOGLE_GENERATIVE_AI_API_KEY=…` in an untracked `.env` at the repo root.
 Omit the id to regenerate everything; `--reprocess` redoes only the
 background removal from `art/raw/` with no API calls. Output lands in
 `site/img/mascots/`.
