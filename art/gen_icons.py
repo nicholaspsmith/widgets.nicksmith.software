@@ -66,6 +66,10 @@ def _key() -> str:
                 key = line.split("=", 1)[1].strip().strip("'\"")
     if not key:
         sys.exit("GOOGLE_GENERATIVE_AI_API_KEY is not set. Export it (or put it in .env) and re-run.")
+    key = key.strip()
+    if not key.startswith("AIza") or len(key) < 30 or any(c.isspace() for c in key):
+        sys.exit(f"That does not look like a Gemini API key (got {len(key)} chars starting "
+                 f"{key[:4]!r}; expected ~39 chars starting 'AIza'). Check the clipboard and re-run.")
     return key
 
 
@@ -83,9 +87,13 @@ def _post(url: str, body: dict) -> dict:
 
 def pick_model(key: str) -> str:
     """Use the preferred model if the key can see it, else the newest image model listed."""
-    with urllib.request.urlopen(f"{API}/models?key={key}&pageSize=200", timeout=60) as r:
-        names = [m["name"].split("/", 1)[1] for m in json.load(r).get("models", [])
-                 if "generateContent" in m.get("supportedGenerationMethods", [])]
+    try:
+        with urllib.request.urlopen(f"{API}/models?key={key}&pageSize=200", timeout=60) as r:
+            names = [m["name"].split("/", 1)[1] for m in json.load(r).get("models", [])
+                     if "generateContent" in m.get("supportedGenerationMethods", [])]
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode(errors="replace")[:600]
+        raise SystemExit(f"Gemini rejected the key when listing models (HTTP {e.code}): {detail}") from None
     if PREFERRED_MODEL in names:
         return PREFERRED_MODEL
     image_models = sorted(n for n in names if "image" in n.lower())
