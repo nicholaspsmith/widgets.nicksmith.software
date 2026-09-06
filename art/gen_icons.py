@@ -67,9 +67,10 @@ def _key() -> str:
     if not key:
         sys.exit("GOOGLE_GENERATIVE_AI_API_KEY is not set. Export it (or put it in .env) and re-run.")
     key = key.strip()
-    if not key.startswith("AIza") or len(key) < 30 or any(c.isspace() for c in key):
+    # Keys are 'AIza…' (classic) or 'AQ.…' (newer AI Studio format); either way no whitespace.
+    if len(key) < 30 or any(c.isspace() for c in key) or key.startswith(("http", "GOOGLE")):
         sys.exit(f"That does not look like a Gemini API key (got {len(key)} chars starting "
-                 f"{key[:4]!r}; expected ~39 chars starting 'AIza'). Check the clipboard and re-run.")
+                 f"{key[:4]!r}). Check the clipboard and re-run.")
     return key
 
 
