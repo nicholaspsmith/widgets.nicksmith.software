@@ -5,9 +5,10 @@ Usage:
   GOOGLE_GENERATIVE_AI_API_KEY=... python3 art/gen_icons.py            # all mascots
   GOOGLE_GENERATIVE_AI_API_KEY=... python3 art/gen_icons.py keylight   # one or more ids
   python3 art/gen_icons.py --reprocess [id ...]                        # redo post-processing from art/raw, no API calls
+  python3 art/gen_icons.py --missing                                   # only ids with no art/raw/<id>.png yet
 
 Raw 1024px output is saved to art/raw/<id>.png; the transparent 256px icon to
-site/img/mascots/<id>.png. The API key is read from the environment only.
+site/img/mascots/<id>.png. The API key comes from the environment or an untracked .env.
 """
 from __future__ import annotations
 
@@ -16,6 +17,7 @@ import io
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -74,16 +76,25 @@ def _key() -> str:
     return key
 
 
-def _post(url: str, body: dict) -> dict:
+def _post(url: str, body: dict, attempts: int = 6) -> dict:
+    """POST JSON; on 429 (quota/rate limit) back off and retry, since a freshly
+    billed project can keep answering 429 for a few minutes while it propagates."""
     req = urllib.request.Request(
         url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}
     )
-    try:
-        with urllib.request.urlopen(req, timeout=180) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode(errors="replace")[:500]
-        raise SystemExit(f"Gemini HTTP {e.code}: {detail}") from None
+    for attempt in range(1, attempts + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=180) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            detail = e.read().decode(errors="replace")[:500]
+            if e.code == 429 and attempt < attempts:
+                wait = 20 * attempt
+                print(f"    429 from Gemini; retrying in {wait}s ({attempt}/{attempts - 1})", flush=True)
+                time.sleep(wait)
+                continue
+            raise SystemExit(f"Gemini HTTP {e.code}: {detail}") from None
+    raise AssertionError("unreachable")
 
 
 def pick_model(key: str) -> str:
@@ -121,6 +132,7 @@ def generate(model: str, key: str, prompt: str) -> bytes:
 
 def main(argv: list[str]) -> None:
     reprocess = "--reprocess" in argv
+    missing_only = "--missing" in argv
     ids = [a for a in argv if not a.startswith("--")]
     spec = json.loads(PROMPTS.read_text())
     mascots = {m["id"]: m for m in spec["mascots"]}
@@ -128,6 +140,9 @@ def main(argv: list[str]) -> None:
     if unknown:
         sys.exit(f"Unknown mascot id(s): {', '.join(unknown)}. Known: {', '.join(mascots)}")
     targets = ids or list(mascots)
+    if missing_only:
+        targets = [t for t in targets if not (RAW_DIR / f"{t}.png").exists()]
+        print(f"Missing: {', '.join(targets) or 'none'}")
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
