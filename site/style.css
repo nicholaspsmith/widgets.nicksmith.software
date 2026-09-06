@@ -91,7 +91,7 @@ h2 { font-size: 30px; margin: 0 0 20px; }
 .repo { font-weight: 600; font-size: 14px; }
 
 /* Why not SwiftBar */
-.why { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.why { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
 .why li { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; color: var(--fg-muted); box-shadow: var(--shadow); }
 .why strong { color: var(--fg); display: block; margin-bottom: 4px; }
 
