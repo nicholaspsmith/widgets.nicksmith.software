@@ -15,6 +15,7 @@ from __future__ import annotations
 import base64
 import io
 import json
+import math
 import os
 import sys
 import time
@@ -54,6 +55,23 @@ def postprocess(raw_png: bytes, size: int = 256, tolerance: int = 40, pad_ratio:
     canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
     canvas.paste(im, ((side - cw) // 2, (side - ch) // 2))
     return canvas.resize((size, size), Image.LANCZOS)
+
+
+def looks_like_tile(icon: Image.Image) -> bool:
+    """True when the model drew the subject on a white rounded tile: after
+    background removal the icon is still mostly opaque near-white along a ring
+    just inside its edge."""
+    w, h = icon.size
+    cx, cy, r = w / 2, h / 2, min(w, h) * 0.46
+    hits = total = 0
+    for k in range(64):
+        ang = 2 * math.pi * k / 64
+        x, y = int(cx + r * math.cos(ang)), int(cy + r * math.sin(ang))
+        rr, gg, bb, a = icon.getpixel((max(0, min(w - 1, x)), max(0, min(h - 1, y))))
+        total += 1
+        if a > 200 and rr > 225 and gg > 225 and bb > 225:
+            hits += 1
+    return hits / total > 0.5
 
 
 # ---------- Gemini call ----------
@@ -161,10 +179,16 @@ def main(argv: list[str]) -> None:
             raw = raw_path.read_bytes()
         else:
             prompt = f"{spec['style']} Subject: {mascots[mid]['subject']}."
-            print(f"  generating {mid} ...", flush=True)
-            raw = generate(model, key, prompt)
+            for attempt in range(1, 4):
+                print(f"  generating {mid} ..." + (f" (attempt {attempt})" if attempt > 1 else ""), flush=True)
+                raw = generate(model, key, prompt if attempt == 1 else prompt + " Sticker-style die-cut illustration with no backing shape.")
+                if not looks_like_tile(postprocess(raw)):
+                    break
+                print(f"    {mid} came back on a white tile; regenerating", flush=True)
             raw_path.write_bytes(raw)
         icon = postprocess(raw)
+        if looks_like_tile(icon):
+            print(f"    warning: {mid} still looks like a tile; review it by hand", flush=True)
         icon.save(OUT_DIR / f"{mid}.png", optimize=True)
         print(f"  wrote site/img/mascots/{mid}.png")
 
