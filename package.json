@@ -1,0 +1,12 @@
+{
+  "name": "widgets.nicksmith.software",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "bash scripts/check-links.sh"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

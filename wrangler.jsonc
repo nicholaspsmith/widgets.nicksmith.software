@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "menubarn",
+  "compatibility_date": "2026-09-06",
+  "assets": { "directory": "./site" },
+  "routes": [{ "pattern": "widgets.nicksmith.software", "custom_domain": true }]
+}
