@@ -148,6 +148,17 @@
   </div>
 </section>
 
+<section id="why">
+  <h2>Why not SwiftBar?</h2>
+  <p class="section-lede">Several of these started as SwiftBar plugins. They were rewritten as standalone apps because the plugin model kept getting in the way.</p>
+  <ul class="why">
+    <li><strong>No host process.</strong> Each widget is its own <code>.app</code> with its own icon, process, and Start-at-Login toggle. Nothing to install first, and one widget hanging can't take the others down.</li>
+    <li><strong>Real menus, not rendered stdout.</strong> Native <code>NSMenu</code>s with sliders, checkmarks, submenus, custom views, and the system colour picker, instead of whatever a text protocol can express.</li>
+    <li><strong>Event-driven, not re-run on a timer.</strong> IOKit power notifications, a <code>CGEventTap</code>, <code>mullvad status listen</code>, ScreenCaptureKit: things a shell script can't touch, reacting the instant something changes.</li>
+    <li><strong>The icon stays put.</strong> A native status item keeps its position; a plugin's refresh re-creates its item and bounces it around under menu-bar managers. Stable signing also keeps Accessibility grants across rebuilds.</li>
+  </ul>
+</section>
+
 <section id="foundations">
   <h2>The frameworks underneath</h2>
   <p class="section-lede">Every widget above is a standalone <code>.app</code> with its own Start-at-Login toggle, built from the same two Swift packages.</p>
