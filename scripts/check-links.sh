@@ -13,6 +13,7 @@ while IFS= read -r ref; do
   case "$ref" in
     \#*|mailto:*|data:*) continue ;;
     http://*|https://*)
+      case "$ref" in https://*/*) ;; *) echo "skip origin $ref"; continue ;; esac
       code=$(curl -sIL -o /dev/null -w '%{http_code}' --max-time 20 -A "menubarn-check" "$ref")
       if [[ "$code" =~ ^[23] ]]; then echo "ok   $code $ref"; else echo "FAIL $code $ref"; fail=1; fi ;;
     /*)

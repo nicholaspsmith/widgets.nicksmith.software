@@ -3,193 +3,178 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menubarn — Where the menu-bar widgets live</title>
-  <meta name="description" content="Ten small, standalone macOS menu-bar apps by Nick Smith, built on two open-source Swift frameworks: StatusItemKit and HotkeyKit.">
+  <title>Menubarn — Small, sharp tools for the macOS menu bar</title>
+  <meta name="description" content="Ten standalone macOS menu-bar apps and the two open-source Swift frameworks they're built on. No SwiftBar, no Electron, no subscriptions.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Menubarn">
-  <meta property="og:description" content="Where the menu-bar widgets live. Ten standalone macOS menu-bar apps built on StatusItemKit and HotkeyKit.">
-  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/menubarn.png">
+  <meta property="og:description" content="Small, sharp tools for the macOS menu bar. Ten standalone apps, two Swift frameworks, no subscriptions.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/og.jpg">
+  <meta property="og:url" content="https://widgets.nicksmith.software/">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="hero">
-  <img class="hero-mascot" src="img/mascots/menubarn.png" alt="The Menubarn mascot: a red barn with critters peeking out" width="256" height="256">
-  <h1>Menubarn</h1>
-  <p class="tagline">Where the menu-bar widgets live.</p>
-  <p class="lede">Ten small, standalone macOS menu-bar apps, built on two open-source Swift frameworks. No SwiftBar, no Electron, no subscriptions. Each one does a single job and stays out of the way.</p>
-
-  <div class="menubar" aria-label="A macOS menu bar showing several Menubarn widgets side by side">
-    <span class="apple" aria-hidden="true"></span>
-    <span class="menubar-app">Finder</span>
-    <span class="menubar-spacer"></span>
-    <img src="img/screens/process-monitor/arc.png" alt="Process Monitor arc icon">
-    <img src="img/screens/apollo-monitor/menubar-icon.png" alt="Apollo Monitor level icon">
-    <img src="img/screens/vpn-dns/connected.png" alt="VPN &amp; DNS connected dot">
-    <img src="img/screens/battery-time/discharging.png" alt="Battery Time remaining">
-    <span class="menubar-clock">Sat 9:41 AM</span>
-  </div>
-  <p class="hero-links">
-    <a href="#widgets">Browse the widgets</a> ·
-    <a href="#foundations">The frameworks underneath</a> ·
-    <a href="https://github.com/nicholaspsmith">GitHub</a>
-  </p>
+<header class="nav">
+  <a class="brand" href="#top" aria-label="Menubarn home">
+    <img src="img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#widgets">Widgets</a>
+    <a href="#frameworks">Frameworks</a>
+    <a href="#why">Why</a>
+    <a class="btn btn-ghost" href="https://github.com/nicholaspsmith">GitHub</a>
+  </nav>
 </header>
 
-<main>
-<section id="widgets">
-  <h2>The widgets</h2>
+<main id="top">
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Where the menu-bar widgets live</p>
+    <h1>Small, sharp tools for the <span class="grad">macOS menu bar</span>.</h1>
+    <p class="lede">Ten standalone apps, each doing one job and staying out of the way. Built on two open-source Swift frameworks. No SwiftBar, no Electron, no subscriptions.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#widgets">Browse the widgets</a>
+      <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/StatusItemKit">View on GitHub</a>
+    </div>
+  </div>
+
+  <figure class="display" aria-label="A macOS menu bar with the Menubarn widgets in a row">
+    <div class="bezel">
+      <img class="bar" src="img/hero/bar.png" alt="macOS menu bar showing KeyLight, VPN &amp; DNS, Curtain, Process Monitor, Battery Time, Claude Usage, MacRecorder, Apollo Monitor, Media Tracking Killer and Download Recycler beside the clock" width="1000" height="28">
+      <div class="wallpaper"></div>
+    </div>
+    <figcaption class="stats">
+      <span><b>10</b> widgets</span>
+      <span><b>2</b> frameworks</span>
+      <span><b>0</b> subscriptions</span>
+      <span><b>MIT</b> licensed</span>
+    </figcaption>
+  </figure>
+</section>
+
+<section id="widgets" class="section">
+  <div class="section-head">
+    <h2>The widgets</h2>
+    <p>Every one is a real <code>.app</code> with its own icon and Start-at-Login toggle. Click a card for the source.</p>
+  </div>
+
   <div class="grid">
-
-    <a class="card-link" href="https://github.com/nicholaspsmith/keylight-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/keylight.png" alt="" width="128" height="128">
-      <h3>KeyLight</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/keylight-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/keylight.png" alt="" width="72" height="72"><div><h3>KeyLight</h3><p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p></div></div>
       <p>Remaps Ctrl + the brightness keys to keyboard-backlight up and down, with the current level shown in the menu bar. A drop-in replacement for using BetterTouchTool for just that.</p>
-      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/keylight.png" alt="The KeyLight menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/vpn-dns-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/vpn-dns.png" alt="" width="128" height="128">
-      <h3>VPN &amp; DNS</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/vpn-dns-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/vpn-dns.png" alt="" width="72" height="72"><div><h3>VPN &amp; DNS</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>One status dot for Mullvad VPN and Tailscale, a sectioned menu covering both, and a watcher that keeps DNS working when the two run at once.</p>
-      <figure class="states">
-        <img src="img/screens/vpn-dns/connected.png" alt="Connected: green dot">
-        <img src="img/screens/vpn-dns/connecting.png" alt="Connecting: orange dot">
-        <img src="img/screens/vpn-dns/blocked.png" alt="Blocked: red dot">
-        <img src="img/screens/vpn-dns/off.png" alt="Off: grey dot">
-      </figure>
-      <img class="shot" src="img/screens/vpn-dns/menu.png" alt="The VPN &amp; DNS dropdown menu">
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/vpn-dns.png" alt="The VPN &amp; DNS menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/menubar-curtain">
-    <article class="card">
-      <img class="mascot" src="img/mascots/curtain.png" alt="" width="128" height="128">
-      <h3>Curtain</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/menubar-curtain">
+      <div class="card-top"><img class="mascot" src="img/mascots/curtain.png" alt="" width="72" height="72"><div><h3>Curtain</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Hides the menu-bar icons you never click. It hides by width alone instead of moving other apps' icons, so it can never strand one like Ice Menubar Manager does.</p>
-      <img class="shot" src="img/screens/curtain/panel.png" alt="The Curtain settings panel">
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/curtain.png" alt="Curtain's hidden-icons panel" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/MacOS_Process_Monitor">
-    <article class="card">
-      <img class="mascot" src="img/mascots/process-monitor.png" alt="" width="128" height="128">
-      <h3>Process Monitor</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/MacOS_Process_Monitor">
+      <div class="card-top"><img class="mascot" src="img/mascots/process-monitor.png" alt="" width="72" height="72"><div><h3>Process Monitor</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Counts the processes you own and warns before you hit <code>kern.maxprocperuid</code>, the limit that silently makes <code>fork()</code> fail in every app. Seven icon styles.</p>
-      <figure class="states">
-        <img src="img/screens/process-monitor/arc.png" alt="Arc style">
-        <img src="img/screens/process-monitor/gauge.png" alt="Gauge style">
-        <img src="img/screens/process-monitor/pie.png" alt="Pie style">
-        <img src="img/screens/process-monitor/wedge.png" alt="Wedge style">
-        <img src="img/screens/process-monitor/sev-orange.png" alt="Warning level">
-        <img src="img/screens/process-monitor/sev-red.png" alt="Critical level">
-      </figure>
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/process-monitor.png" alt="The Process Monitor menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/battery-time-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/battery-time.png" alt="" width="128" height="128">
-      <h3>Battery Time</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/battery-time-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/battery-time.png" alt="" width="72" height="72"><div><h3>Battery Time</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Puts the battery time-remaining estimate back in the menu bar, where Apple removed it in 2016, and updates the instant you plug in or unplug.</p>
-      <figure class="states">
-        <img src="img/screens/battery-time/discharging.png" alt="Discharging">
-        <img src="img/screens/battery-time/charging.png" alt="Charging">
-        <img src="img/screens/battery-time/low.png" alt="Low battery">
-      </figure>
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/battery-time.png" alt="The Battery Time menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/claude-usage-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/claude-usage.png" alt="" width="128" height="128">
-      <h3>Claude Usage</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/claude-usage-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/claude-usage.png" alt="" width="72" height="72"><div><h3>Claude Usage</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Claude Code plan limits and reset timers, token spend by day and model from your local transcripts, and which sessions are running, all from the menu bar.</p>
-      <img class="shot" src="img/screens/claude-usage/menu.png" alt="The Claude Usage dropdown">
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/claude-usage.png" alt="The Claude Usage menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/MacRecorder">
-    <article class="card">
-      <img class="mascot" src="img/mascots/macrecorder.png" alt="" width="128" height="128">
-      <h3>MacRecorder</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/MacRecorder">
+      <div class="card-top"><img class="mascot" src="img/mascots/macrecorder.png" alt="" width="72" height="72"><div><h3>MacRecorder</h3><p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span><span>ScreenCaptureKit</span></p></div></div>
       <p>Screen recording with system audio, the one thing QuickTime can't do, on ⌘⇧5. Recordings go straight to Downloads with no preview step.</p>
-      <img class="shot shot-icon" src="img/screens/macrecorder/app-icon.png" alt="MacRecorder app icon">
-      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span><span>ScreenCaptureKit</span></p>
-    </article>
+      <div class="shot shot-icon"><img src="img/screens/macrecorder/app-icon.png" alt="The MacRecorder app icon" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/apollo-monitor-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/apollo-monitor.png" alt="" width="128" height="128">
-      <h3>Apollo Monitor</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/apollo-monitor-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/apollo-monitor.png" alt="" width="72" height="72"><div><h3>Apollo Monitor</h3><p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p></div></div>
       <p>A live level arc and slider for a Universal Audio Apollo's monitor output, with the Mac's volume keys remapped to 1 dB steps and a volume overlay macOS can't provide.</p>
-      <img class="shot" src="img/screens/apollo-monitor/menu.png" alt="The Apollo Monitor dropdown">
-      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/apollo-monitor.png" alt="The Apollo Monitor menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/media-tracking-killer-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/media-tracking-killer.png" alt="" width="128" height="128">
-      <h3>Media Tracking Killer</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/media-tracking-killer-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/media-tracking-killer.png" alt="" width="72" height="72"><div><h3>Media Tracking Killer</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Periodically stops Apple's media-analysis daemons so they stop scanning your library and burning CPU in the background.</p>
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/media-tracking-killer.png" alt="The Media Tracking Killer menu" loading="lazy"></div>
     </a>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/download-recycler-menubar">
-    <article class="card">
-      <img class="mascot" src="img/mascots/download-recycler.png" alt="" width="128" height="128">
-      <h3>Download Recycler</h3>
+    <a class="card" href="https://github.com/nicholaspsmith/download-recycler-menubar">
+      <div class="card-top"><img class="mascot" src="img/mascots/download-recycler.png" alt="" width="72" height="72"><div><h3>Download Recycler</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
       <p>Sweeps old files from Downloads into the Trash once a day. Restorable, never a hard delete.</p>
-      <p class="chips"><span>StatusItemKit</span></p>
-    </article>
+      <div class="shot"><img src="img/menus/download-recycler.png" alt="The Download Recycler menu" loading="lazy"></div>
     </a>
 
+    <a class="card card-make" href="https://github.com/nicholaspsmith/StatusItemKit#minimal-example">
+      <div class="card-top"><img class="mascot" src="img/mascots/statusitemkit.png" alt="" width="72" height="72"><div><h3>Your widget here</h3><p class="chips"><span>StatusItemKit</span></p></div></div>
+      <p>A status item, a poll loop, a menu, Start at Login, and a signed <code>.app</code> are about forty lines on StatusItemKit. Start from the minimal example.</p>
+      <p class="make-cta">Build one →</p>
+    </a>
   </div>
 </section>
 
-<section id="why">
-  <h2>Why not SwiftBar?</h2>
-  <p class="section-lede">Several of these started as SwiftBar plugins. They were rewritten as standalone apps because the plugin model kept getting in the way.</p>
-  <ul class="why">
-    <li><strong>No host process.</strong> Each widget is its own <code>.app</code> with its own icon, process, and Start-at-Login toggle. Nothing to install first, and one widget hanging can't take the others down.</li>
-    <li><strong>Real menus, not rendered stdout.</strong> Native <code>NSMenu</code>s with sliders, checkmarks, submenus, custom views, and the system colour picker, instead of whatever a text protocol can express.</li>
-    <li><strong>Event-driven, not re-run on a timer.</strong> IOKit power notifications, a <code>CGEventTap</code>, <code>mullvad status listen</code>, ScreenCaptureKit: things a shell script can't touch, reacting the instant something changes.</li>
-    <li><strong>The icon stays put.</strong> A native status item keeps its position; a plugin's refresh re-creates its item and bounces it around under menu-bar managers. Stable signing also keeps Accessibility grants across rebuilds.</li>
-  </ul>
+<section id="frameworks" class="section">
+  <div class="section-head">
+    <h2>The frameworks underneath</h2>
+    <p>Two small Swift packages. Every widget above is built from them, and so can yours be.</p>
+  </div>
+  <div class="grid grid-2">
+    <a class="card card-fw" href="https://github.com/nicholaspsmith/StatusItemKit">
+      <div class="card-top"><img class="mascot" src="img/mascots/statusitemkit.png" alt="" width="72" height="72"><div><h3>StatusItemKit</h3><p class="chips"><span>Swift</span><span>AppKit</span></p></div></div>
+      <p>The shell for a standalone menu-bar app: the status-item lifecycle, a polling loop, a lazily rebuilt menu, text and icon rendering, Start at Login, notifications, data-driven meter icons, and a build-and-sign script that produces a proper <code>.app</code>.</p>
+    </a>
+    <a class="card card-fw" href="https://github.com/nicholaspsmith/HotkeyKit">
+      <div class="card-top"><img class="mascot" src="img/mascots/hotkeykit.png" alt="" width="72" height="72"><div><h3>HotkeyKit</h3><p class="chips"><span>Swift</span><span>CGEventTap</span></p></div></div>
+      <p>A reusable engine for intercepting global keyboard and media keys, matching them against declarative bindings, and remapping or swallowing them.</p>
+    </a>
+  </div>
 </section>
 
-<section id="foundations">
-  <h2>The frameworks underneath</h2>
-  <p class="section-lede">Every widget above is a standalone <code>.app</code> with its own Start-at-Login toggle, built from the same two Swift packages.</p>
-  <div class="grid grid-2">
+<section id="why" class="section">
+  <div class="section-head">
+    <h2>Why not SwiftBar?</h2>
+    <p>Several of these started as SwiftBar plugins. They were rewritten as standalone apps because the plugin model kept getting in the way.</p>
+  </div>
+  <ol class="why">
+    <li><span class="num">01</span><h3>No host process</h3><p>Each widget is its own <code>.app</code> with its own icon, process, and Start-at-Login toggle. Nothing to install first, and one widget hanging can't take the others down.</p></li>
+    <li><span class="num">02</span><h3>Real menus, not rendered stdout</h3><p>Native <code>NSMenu</code>s with sliders, checkmarks, submenus, custom views, and the system colour picker, instead of whatever a text protocol can express.</p></li>
+    <li><span class="num">03</span><h3>Event-driven, not re-run on a timer</h3><p>IOKit power notifications, a <code>CGEventTap</code>, <code>mullvad status listen</code>, ScreenCaptureKit: things a shell script can't touch, reacting the instant something changes.</p></li>
+    <li><span class="num">04</span><h3>The icon stays put</h3><p>A native status item keeps its position; a plugin's refresh re-creates its item and bounces it around under menu-bar managers. Stable signing also keeps Accessibility grants across rebuilds.</p></li>
+  </ol>
+</section>
 
-    <a class="card-link" href="https://github.com/nicholaspsmith/StatusItemKit">
-    <article class="card">
-      <img class="mascot" src="img/mascots/statusitemkit.png" alt="" width="128" height="128">
-      <h3>StatusItemKit</h3>
-      <p>A small framework for standalone macOS menu-bar apps: the status-item lifecycle, a polling loop, a lazily rebuilt menu, text and icon rendering, Start at Login, notifications, data-driven meter icons, and a build-and-sign script that produces a proper <code>.app</code>.</p>
-    </article>
-    </a>
-
-    <a class="card-link" href="https://github.com/nicholaspsmith/HotkeyKit">
-    <article class="card">
-      <img class="mascot" src="img/mascots/hotkeykit.png" alt="" width="128" height="128">
-      <h3>HotkeyKit</h3>
-      <p>A reusable <code>CGEventTap</code> engine for intercepting global keyboard and media keys, matching them against declarative bindings, and remapping or swallowing them.</p>
-    </article>
-    </a>
-
+<section id="install" class="section">
+  <div class="install">
+    <div>
+      <h2>Install one</h2>
+      <p>Every app ships an <code>install.sh</code> that builds the bundle, links it into <code>~/Applications</code>, and launches it. StatusItemKit sits beside it as a sibling checkout.</p>
+      <p class="muted">macOS 13 or later and the Xcode Command Line Tools.</p>
+    </div>
+    <pre><code>git clone https://github.com/nicholaspsmith/StatusItemKit.git
+git clone https://github.com/nicholaspsmith/keylight-menubar.git
+cd keylight-menubar &amp;&amp; ./install.sh</code></pre>
   </div>
 </section>
 </main>
