@@ -267,7 +267,7 @@ risk, as long as it is on the list.
   plan.
 
 **Permissions the widgets need (TCC)**
-- Accessibility: KeyLight (CGEventTap), Barn (Manage Icons only),
+- Accessibility: KeyLight (CGEventTap), Barn (Visible Icons only),
   MacRecorder (hotkey tap), Apollo Monitor (volume-key tap). The system
   prompt appears on first use; the installer's permissions screen can only
   deep-link to the pane, never grant.
