@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VPN &amp; DNS — Menubarn</title>
-  <meta name="description" content="One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta name="description" content="One chameleon for Mullvad VPN and Tailscale: spots and a curled tail when Tailscale is on, yellow with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
   <meta name="theme-color" content="#0b0d12">
   <meta property="og:type" content="article">
   <meta property="og:title" content="VPN &amp; DNS — Menubarn">
-  <meta property="og:description" content="One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta property="og:description" content="One chameleon for Mullvad VPN and Tailscale: spots and a curled tail when Tailscale is on, yellow with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
   <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/vpn-dns.png">
   <meta property="og:url" content="https://widgets.nicksmith.software/apps/vpn-dns/">
   <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
     <div>
       <p class="eyebrow">A Menubarn widget</p>
       <h1>VPN &amp; DNS</h1>
-      <p class="lede">One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.</p>
+      <p class="lede">One chameleon for Mullvad VPN and Tailscale: spots and a curled tail when Tailscale is on, yellow with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.</p>
       <p class="chips"><span>StatusItemKit</span></p>
       <div class="cta">
         <a class="btn btn-primary" href="#install">Install</a>
@@ -53,8 +53,8 @@
   <div class="app-glance">
     <div class="glance">
       <h2>In the menu bar</h2>
-      <img class="glance-strip" src="../../img/glyphs/vpn-dns.png" alt="VPN and DNS chameleon in green with a tongue, blue with a tail, green with both, red">
-      <p>Colour is Mullvad, blue is Tailscale as the active path, the tongue is a live tunnel, the tail is Tailscale running.</p>
+      <img class="glance-strip" src="../../img/glyphs/vpn-dns.png" alt="VPN and DNS chameleon on its stick: brown, spotted with a curled tail, yellow with its tongue out, then both">
+      <p>Brown on its stick when idle. Spots and a curled tail for Tailscale, yellow and a tongue for Mullvad, all of it for both.</p>
     </div>
     <div class="glance">
       <h2>The menu</h2>
@@ -76,16 +76,17 @@ Mullvad/Tailscale menu-bar icons (e.g. with
 <a href="https://github.com/nicholaspsmith/menubar-barn">Barn</a>) and let this be the only one.</p>
 <h2>What you see</h2>
 <p>The menu bar shows <strong>one icon</strong>: a chameleon.</p>
+<p>It hangs onto a brown stick and is brown like the stick while nothing is
+connected.</p>
 <ul>
-<li>Its <strong>colour</strong> tracks Mullvad: green connected, orange connecting or
-  disconnecting, red blocked, grey off — and <strong>blue</strong> when Mullvad is off but
-  Tailscale is running, since Tailscale is then the active path.</li>
-<li>Its <strong>tongue</strong> flicks out while Mullvad is connected.</li>
-<li>Its <strong>tail</strong> hangs down while Tailscale is running.</li>
+<li><strong>Tailscale running:</strong> it grows dark spots (Tailscale's own icon is dots)
+  and its tail curls. Otherwise the tail is short and straight.</li>
+<li><strong>Mullvad connected:</strong> it turns yellow and its tongue flicks out.</li>
+<li><strong>Both:</strong> yellow with spots, tongue out, tail curled.</li>
+<li>Mullvad's in-between states still show as the dot's colours: orange while
+  connecting or disconnecting, red when blocked.</li>
 </ul>
-<p>So: green with a tongue is Mullvad alone, blue with a tail is Tailscale alone,
-green with both is both, and a plain red one is blocked with Tailscale off.
-Prefer the original dot? <strong>menu ▸ Icon ▸ Dot</strong>.</p>
+<p>Prefer the original dot? <strong>menu ▸ Icon ▸ Dot</strong>.</p>
 <p>Clicking it opens a dropdown, grouped into two bold section headers:</p>
 <pre><code>Mullvad - Fair Sheep                      ← bold section header, names this
   ●  Connected — Denver, CO                 machine's registered device
