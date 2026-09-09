@@ -9,9 +9,18 @@ Live at https://widgets.nicksmith.software.
 
 ## Layout
 
-- `site/` — the static page (`index.html`, `style.css`, `img/`). This is the deploy root.
-- `art/` — mascot generation: `prompts.json`, `gen_icons.py`, raw outputs in `art/raw/`.
-- `scripts/` — `collect-screenshots.sh` (copies screenshots in from the sibling repos under `~/Code`), `check-links.sh`.
+- `site/` — the static site (`index.html`, `style.css`, `img/`, and one generated page per widget under `apps/<id>/`). This is the deploy root.
+- `art/` — mascot generation: `prompts.json`, `gen_icons.py`, raw outputs in `art/raw/`; `art/glyphs/` renders the menu-bar glyph strips and the hero bar from the apps' own drawing code (`render-glyphs.sh`).
+- `scripts/` — `build-pages.py` (one detail page per widget from its card plus its README in the sibling checkout), `collect-screenshots.sh` (copies screenshots in from the sibling repos under `~/Code`), `check-links.sh` (every page).
+- `docs/` — plans, e.g. the GUI installer.
+
+## Rebuilding the widget pages
+
+```bash
+python3 scripts/build-pages.py     # needs: python3 -m pip install --user --break-system-packages markdown
+```
+
+Run it after editing a card on `index.html` or any app's README; it reads both.
 
 ## Regenerating a mascot
 

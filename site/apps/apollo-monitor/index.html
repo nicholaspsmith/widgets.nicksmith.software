@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apollo Monitor — Menubarn</title>
+  <meta name="description" content="An Apollo interface&#x27;s face whose tick ring is the level, plus a slider, for an Apollo audio interface&#x27;s monitor output, with the Mac&#x27;s volume keys remapped to 1 dB steps and a volume overlay macOS can&#x27;t provide.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Apollo Monitor — Menubarn">
+  <meta property="og:description" content="An Apollo interface&#x27;s face whose tick ring is the level, plus a slider, for an Apollo audio interface&#x27;s monitor output, with the Mac&#x27;s volume keys remapped to 1 dB steps and a volume overlay macOS can&#x27;t provide.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/apollo-monitor.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/apollo-monitor/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/apollo-monitor.png" alt="The Apollo Monitor mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Apollo Monitor</h1>
+      <p class="lede">An Apollo interface's face whose tick ring is the level, plus a slider, for an Apollo audio interface's monitor output, with the Mac's volume keys remapped to 1 dB steps and a volume overlay macOS can't provide.</p>
+      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/apollo-monitor-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/apollo-monitor.png" alt="Apollo Monitor face at 15%, 50% and 90% of the tick ring, then grey">
+      <p>The ring of ticks around the knob is the monitor level. Grey when the level cannot be changed.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/apollo-monitor.png" alt="The Apollo Monitor menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A macOS menu-bar control for the <strong>monitor output level of an Apollo audio
+interface</strong>: a live level arc in the menu bar, a horizontal slider, connection
+status, the Mac's <strong>volume keys</strong> remapped to drive it in 1 dB steps, and a volume
+overlay to replace the one macOS cannot make work.</p>
+<p>Built on <a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a> and
+<a href="https://github.com/nicholaspsmith/HotkeyKit">HotkeyKit</a>.</p>
+<pre><code>┌────────────────────────────────┐
+│  Apollo Twin MkII · Connected  │
+│  ───●───────────  13% · -47 dB │
+├────────────────────────────────┤
+│  Mute                          │
+│  Dim                           │
+│  Show Volume Overlay         ✓ │
+│  Start at Login              ✓ │
+│  Quit Apollo Monitor        ⌘Q │
+└────────────────────────────────┘
+</code></pre>
+<h2>The menu-bar icon</h2>
+<p>An Apollo interface's face: the monitor knob with its ring of ticks is the mouth,
+two square buttons above it are the eyes. The ticks light green with the
+monitor level, from bottom-left over the top to bottom-right, shown above at
+15%, 50%, 90% and offline. It follows the level live, including changes made
+on the interface's own knob or in its Console app.</p>
+<p>It turns <strong>grey whenever the level cannot be changed</strong> — the mixer engine is not
+running, the Apollo is offline, the output is muted, or Accessibility has not been
+granted yet. The menu says which.</p>
+<p>Prefer the original green arc? <strong>menu ▸ Icon ▸ Arc</strong>. Both are full-colour images
+rather than templates, so unlike most menu-bar glyphs they keep their colour
+instead of inverting when the menu opens.</p>
+<h2>Why this exists</h2>
+<p>The Apollo exposes <strong>no volume control to Core Audio at all</strong> — no
+<code>kAudioDevicePropertyVolumeScalar</code>, no virtual main volume, and
+<code>osascript -e 'get volume settings'</code> reports <code>output volume: missing value</code>. So
+the macOS volume keys, <code>set volume</code>, and every hardware-volume utility are
+useless on it, even when the Apollo is the default output device. The Console
+app also ships no AppleScript dictionary and no volume key commands.</p>
+<p>The level can only be changed by opening Console or reaching for the knob — until
+now.</p>
+<h2>How it works</h2>
+<p><code>UA Mixer Engine.app</code> starts at login and listens on <strong>TCP <code>127.0.0.1:4710</code></strong>,
+speaking an undocumented path-based "StateTree" protocol. It is the same channel
+the Console app itself uses, and it listens whether or not the Console window is
+open.</p>
+<ul>
+<li>Messages are <code>&lt;verb&gt; &lt;path&gt; [value]</code> terminated by a <strong>NUL byte</strong> (<code>0x00</code>).
+  A newline is silently ignored, which makes the socket look dead.</li>
+<li>Verbs: <code>get</code>, <code>set</code>, <code>subscribe</code>, <code>unsubscribe</code>.</li>
+<li>Replies are JSON: <code>{"path": …, "data": …}</code> or <code>{"path": …, "error": …}</code>.</li>
+<li><code>subscribe</code> returns the current value <strong>and pushes every later change</strong>, so the
+  menu bar follows the hardware knob and Console's fader live, with no polling.</li>
+<li>A <code>get</code> round-trips in ~3 ms; a <code>set</code> is echoed back in ~8 ms (median of 12).</li>
+</ul>
+<p>Paths used (device 0; the <code>MONITOR</code> output is resolved by name, not hardcoded):</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/devices/0/DeviceName/value</code></td>
+<td>string — e.g. <code>"Apollo Twin MkII"</code></td>
+</tr>
+<tr>
+<td><code>/devices/0/DeviceOnline/value</code></td>
+<td>bool</td>
+</tr>
+<tr>
+<td><code>…/outputs/&lt;n&gt;/CRMonitorLevelTapered/value</code></td>
+<td>float 0.0–1.0, knob position</td>
+</tr>
+<tr>
+<td><code>…/outputs/&lt;n&gt;/CRMonitorLevel/value</code></td>
+<td>float −96.0–0.0, dB</td>
+</tr>
+<tr>
+<td><code>…/outputs/&lt;n&gt;/Mute/value</code>, <code>…/DimOn/value</code></td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+<h3>The two properties are not equivalent</h3>
+<p><code>CRMonitorLevelTapered</code> <strong>snaps to a 1/54 grid</strong> — a requested <code>0.05</code> reads back
+as <code>0.055556</code> — and holds the same value across roughly a 2 dB span. It is a
+coarse <em>report</em> of the knob's position, not the control itself.</p>
+<p><code>CRMonitorLevel</code> (dB) is the real, fine-grained control: <code>-29.5</code>, <code>-29.1</code> and
+<code>-27.25</code> all round-trip exactly while the tapered value sits unchanged at 14/54.</p>
+<p>So the two are used for different jobs:</p>
+<ul>
+<li><strong>The volume keys step dB</strong>, 1 dB at a time, snapped onto the whole-dB ladder so
+  a level left on a fraction by the hardware knob lands back on integers. Around
+  normal listening levels one tapered grid step is ~2 dB, which makes 1 dB about
+  0.9% of knob travel — finer than a single percentage point of the 0–100% scale,
+  which cannot be expressed at all in only 55 hardware positions.</li>
+<li><strong>The slider sets knob position</strong>, mirroring Console's knob. Its knob sits at the
+  position the engine reports, continuously — the display is never quantised, so it
+  always agrees with Console. Dragging writes whole percents; the engine snaps those
+  to its 1/54 grid and pushes back the real position, which is then what is shown.
+  So a drop at 26% can settle at 14/54, and the readout tells you so.</li>
+</ul>
+<p>Nothing accumulates in either path — the keys compute an absolute dB, the slider an
+absolute position from the mouse — so no canonical step ladder is needed to stop
+drift. Conversions and the drag geometry are
+<a href="https://github.com/nicholaspsmith/apollo-monitor-menubar/blob/main/Tests/ApolloMonitorCoreTests/KnobPositionTests.swift">unit-tested</a>.</p>
+<p>0% is −96 dB (silence), 100% is 0 dB (unity).</p>
+<h2 id="install">Install</h2>
+<pre><code class="language-sh">git clone https://github.com/nicholaspsmith/StatusItemKit.git
+git clone https://github.com/nicholaspsmith/HotkeyKit.git
+git clone https://github.com/nicholaspsmith/apollo-monitor-menubar.git
+cd apollo-monitor-menubar
+../StatusItemKit/scripts/setup-signing.sh   # once, see below
+./install.sh
+</code></pre>
+<p>The three checkouts must be siblings — <code>Package.swift</code> uses local paths.</p>
+<p>Run <code>../StatusItemKit/scripts/setup-signing.sh</code> once before installing.
+Ad-hoc signatures get a new code hash on every rebuild and macOS keys the
+Accessibility grant to that hash, so without a stable identity you re-approve the
+app after every build.</p>
+<h2>Usage</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Volume up / down keys</strong></td>
+<td>Monitor level ±1 dB per press; a held key accelerates</td>
+</tr>
+<tr>
+<td><strong>Mute key</strong></td>
+<td>Mutes and unmutes the monitor output</td>
+</tr>
+<tr>
+<td>Click the icon</td>
+<td>Slider, Mute, Dim, overlay switch, <a href="#mixer-watchdog">Mixer Watchdog</a>, Start at Login</td>
+</tr>
+<tr>
+<td><code>ApolloMonitor --step up\|down</code></td>
+<td>Adjust once and exit — needs no Accessibility</td>
+</tr>
+<tr>
+<td><code>ApolloMonitor --login on\|off\|status</code></td>
+<td>Start at Login, from the shell — what <code>install.sh</code> calls</td>
+</tr>
+</tbody>
+</table>
+<h3>The volume keys</h3>
+<p>The Mac's own volume and mute keys are taken over rather than some chord. On an
+Apollo they otherwise do nothing useful: because the device has no Core Audio
+volume, pressing them just raises the system HUD with a <strong>greyed-out slider you
+cannot move</strong>. Swallowing the key suppresses that HUD too, so feedback comes from
+the menu-bar level arc and the overlay.</p>
+<p>The mute key toggles the Apollo's <code>Mute</code>, and is deliberately the one key that does
+<em>not</em> repeat on hold — repeating it would flap the output on and off several times
+a second. Muting changes no level, so the overlay is driven by mute state as well
+as by dB; without that the mute key's only visible effect would be the menu-bar arc
+turning grey.</p>
+<h3>The overlay</h3>
+<p>Because the key is swallowed, the system's own volume HUD never appears — which is
+no loss, since for a device with no Core Audio volume it could only show a slider
+greyed out. A replacement overlay appears top-right below the menu bar, in the same
+place, showing the device name, a level bar, and the exact dB. It is a
+non-activating borderless panel so it never steals focus, ignores mouse events, and
+fades after 1.4 s.</p>
+<p>It follows the <em>level</em>, not the keypress, so turning the knob on the Apollo itself
+or moving Console's fader raises the same readout. Dragging the menu slider does
+not, since that is already its own feedback.</p>
+<p><strong>Show Volume Overlay</strong> in the menu turns it off and on; the choice persists. With
+it off the menu-bar arc is still live, so the level remains visible without
+anything appearing over your work.</p>
+<p>The panel is rebuilt when the machine wakes, when the screen configuration changes,
+or when the overlay has gone unused for five minutes. A long-running instance once
+reached a state where every <code>show()</code> ran correctly and yet no window ever reached
+the screen; restarting fixed it. The trigger was never reproduced, and a process
+cannot reliably ask whether its own window is on screen —
+<code>CGWindowListCopyWindowInfo</code> answers differently for the caller — so the window is
+replaced across those transitions instead of repaired on detection. Rebuilding is
+sub-millisecond and never happens during a run of key presses.</p>
+<h3>Responsiveness</h3>
+<p>The event-tap callback does arithmetic and a socket write, nothing else. Drawing is
+deferred to the next main-queue turn, so a keystroke never waits on a redraw — and
+the tap cannot be disabled by the system for dawdling. The burst of state changes a
+single press produces (the optimistic write, the engine's dB echo, its coarser
+tapered echo) collapses into one UI pass instead of three.</p>
+<p>The dB readout moves the instant a key is pressed; the slider's position waits for
+the engine's echo, ~8 ms, because only the engine knows which of its 55 knob
+positions the level landed on. Measured end to end, the app's own processing went
+from a 68 ms median to 37 ms, with a floor of 1–7 ms.</p>
+<p>A held key accelerates: 1 dB for the first few repeats, then 2, then 3. macOS
+delivers media-key repeats about every 150 ms, so a flat 1 dB made crossing a useful
+range take several seconds of holding; this crosses −60 → 0 dB in about two seconds
+while a single press still moves exactly 1 dB.</p>
+<h3>Pass-through</h3>
+<p>The volume keys are only intercepted while the Apollo is <strong>the current default output
+device</strong>. Switch to the built-in speakers or a USB interface and the keys go
+straight back to their normal behaviour, because those devices have their own
+volume and macOS handles them properly. The menu says so when it is passing them
+through. They also pass through whenever the engine is unreachable, so the keys
+are never dead.</p>
+<p>Bound to <code>NX_KEYTYPE_SOUND_UP</code> / <code>_DOWN</code> / <code>MUTE</code> (0, 1 and 7), each with and
+without the <code>fn</code> modifier, since some keyboards report the function layer on media
+keys.</p>
+<p>This needs <strong>Accessibility</strong> permission (it is a <code>CGEventTap</code>); the menu and
+slider do not. <code>--step</code> is the escape hatch if you would rather not grant it:
+bind it from Shortcuts, Karabiner, or anything else that can run a command.</p>
+<h2>Mixer Watchdog</h2>
+<p><code>./install.sh</code> also installs a small LaunchAgent, <code>com.nicholassmith.ua-watchdog</code>,
+which the menu's <strong>Mixer Watchdog</strong> submenu reports on and toggles. It exists because
+The mixer engine's helper processes occasionally wedge at 100% CPU and take Apollo audio down
+with them — most often an orphaned <code>UA Mixer Helper</code> left behind when Console
+quits.</p>
+<p>Every 60 seconds it scans for the Apollo's mixer-engine processes and kills the ones that
+are stuck:</p>
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th>Bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UA Mixer Helper</code>, orphaned (PPID 1)</td>
+<td>≥ 80% CPU — killed on sight</td>
+</tr>
+<tr>
+<td><code>UA Mixer Engine</code> (real-time, so a higher bar)</td>
+<td>≥ 98% CPU across 3 ticks</td>
+</tr>
+<tr>
+<td>Every other process from the same suite (<code>Console</code>, <code>UA Connect</code>, <code>UAD Meter</code>, helpers)</td>
+<td>≥ 90% CPU across 2 ticks</td>
+</tr>
+</tbody>
+</table>
+<p>If the process it killed was on the audio path it then <code>launchctl kickstart</code>s the
+mixer engine, so sound comes back without you doing anything, and posts a
+notification. Everything runs as you — no sudo, since those processes are
+user-owned.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~/.local/bin/ua-watchdog.sh</code></td>
+<td>the script (copied from <code>watchdog/</code>)</td>
+</tr>
+<tr>
+<td><code>~/Library/LaunchAgents/com.nicholassmith.ua-watchdog.plist</code></td>
+<td>the agent</td>
+</tr>
+<tr>
+<td><code>~/.local/state/ua-watchdog.log</code></td>
+<td>appended only on WARN/KILL — <strong>Show log…</strong> opens it</td>
+</tr>
+<tr>
+<td><code>~/.local/state/ua-watchdog.heartbeat</code></td>
+<td>epoch of the last tick; if it goes stale the submenu turns red</td>
+</tr>
+</tbody>
+</table>
+<p>Turn it off with <strong>Mixer Watchdog ▸ Disable watchdog</strong>. That is persistent: it
+survives reboots, and re-running <code>./install.sh</code> refreshes the script and plist
+but leaves it disabled. Thresholds are env-overridable (<code>UA_WD_CPU</code>,
+<code>UA_WD_CPU_ENGINE</code>, <code>UA_WD_ORPHAN_CPU</code>, <code>UA_WD_TICKS</code>, <code>UA_WD_TICKS_ENGINE</code>) at
+the top of the script.</p>
+<p>To install or reinstall it on its own, without rebuilding the app:</p>
+<pre><code class="language-sh">./watchdog/install-watchdog.sh
+</code></pre>
+<h2>Requirements</h2>
+<p>macOS 13+ and an Apollo interface with its desktop software (the Console app
+and its mixer engine) installed.</p>
+<h2>Supported interfaces</h2>
+<p>The app never talks to the hardware. It talks to the mixer engine that the
+Console app runs on the Mac, so any Apollo that is driven by that engine should
+work:</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apollo Twin MkII</td>
+<td>Tested (Console 3, 1.3.0, macOS 26)</td>
+</tr>
+<tr>
+<td>Apollo Twin X, Apollo Solo</td>
+<td>Untested; same engine and protocol, expected to work</td>
+</tr>
+<tr>
+<td>Apollo x4, x6, x8, x8p, x16</td>
+<td>Untested; same engine, expected to work</td>
+</tr>
+<tr>
+<td>Earlier rack Apollo 8, 8p, 16</td>
+<td>Untested; same engine, expected to work</td>
+</tr>
+<tr>
+<td>Any model that only works over USB on Windows</td>
+<td>Not applicable — no Mac mixer engine</td>
+</tr>
+</tbody>
+</table>
+<p>Only the first device (<code>/devices/0</code>) is controlled. If you run one of the
+untested models, a report either way is welcome.</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

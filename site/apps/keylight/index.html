@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KeyLight — Menubarn</title>
+  <meta name="description" content="Remaps Ctrl + the brightness keys to keyboard-backlight up and down, with a slider in the menu and a keycap in the bar whose rays light with the level. A drop-in replacement for using BetterTouchTool for just that.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="KeyLight — Menubarn">
+  <meta property="og:description" content="Remaps Ctrl + the brightness keys to keyboard-backlight up and down, with a slider in the menu and a keycap in the bar whose rays light with the level. A drop-in replacement for using BetterTouchTool for just that.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/keylight.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/keylight/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/keylight.png" alt="The KeyLight mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>KeyLight</h1>
+      <p class="lede">Remaps Ctrl + the brightness keys to keyboard-backlight up and down, with a slider in the menu and a keycap in the bar whose rays light with the level. A drop-in replacement for using BetterTouchTool for just that.</p>
+      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/keylight-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/keylight.png" alt="KeyLight's keycap grey at 0%, then with two, six and all eight rays lit">
+      <p>Rays light clockwise with the backlight, from grey at 0% to all eight at 100%.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/keylight.png" alt="The KeyLight menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A tiny standalone macOS menu-bar app that remaps <strong>Ctrl + the brightness keys</strong>
+to <strong>keyboard-backlight</strong> up/down — a drop-in replacement for using
+BetterTouchTool just for that. The menu-bar icon shows the current backlight
+level, and a small preferences window lets you rebind the two controls.</p>
+<p>Built on <a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a> (the
+menu-bar shell) and <a href="https://github.com/nicholaspsmith/HotkeyKit">HotkeyKit</a>
+(the global key-tap engine).</p>
+<h2>What it does</h2>
+<table>
+<thead>
+<tr>
+<th>Trigger (default)</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl + Brightness Up</code></td>
+<td>keyboard backlight up one step (1/16)</td>
+</tr>
+<tr>
+<td><code>Ctrl + Brightness Down</code></td>
+<td>keyboard backlight down one step</td>
+</tr>
+</tbody>
+</table>
+<p>The original brightness key is swallowed, so the display brightness doesn't
+change. The menu-bar gauge tracks the level; rebind either control in
+Preferences. The menu's first row is a brightness slider, so the backlight can
+also be set by dragging.</p>
+<h2>The menu-bar icon</h2>
+<p>A keycap in sunglasses whose rays light up clockwise with the backlight, shown
+above at 0%, 25%, 75% and 100%: grey when the backlight is off, all eight rays
+at full, and the first ray comes on at 1% so the key is never dark while the
+backlight is on. It also turns grey when KeyLight cannot change the backlight
+(Accessibility not granted yet, or the lid is closed); the menu says which. Prefer a plain meter? <strong>menu ▸ Icon</strong> offers Gauge, Arc, Pie or Wedge;
+each row previews itself, and the choice persists across launches.</p>
+<h2>How it works</h2>
+<ul>
+<li><strong>HotkeyKit</strong> owns a <code>CGEventTap</code> that intercepts the brightness media keys,
+  matches them against the bindings, and swallows the matched event.</li>
+<li><strong>CoreBrightness</strong> (<code>KeyboardBrightnessClient</code>, private framework) reads/sets
+  the built-in keyboard backlight. The keyboard id is discovered via
+  <code>copyKeyboardBacklightIDs</code> (never hardcoded). When the backlight is suppressed
+  (clamshell / lid closed), sets no-op — the app handles this gracefully.</li>
+</ul>
+<h2 id="install">Install</h2>
+<pre><code class="language-sh">./install.sh
+</code></pre>
+<p>Builds <code>KeyLight.app</code>, symlinks it into <code>~/Applications</code>, and launches it. Grant
+<strong>Accessibility</strong> when prompted (needed to intercept the keys). Enable
+<strong>Start at Login</strong> from the menu if you want it persistent.</p>
+<h3>Make the Accessibility grant survive rebuilds (recommended)</h3>
+<p>By default the app is ad-hoc signed, so every rebuild changes its code hash and
+macOS invalidates the Accessibility grant — you'd have to re-approve KeyLight
+after each rebuild. Create a stable local signing identity <strong>once</strong>:</p>
+<pre><code class="language-sh">../StatusItemKit/scripts/setup-signing.sh   # one-time, idempotent
+./install.sh                                # rebuild now signs with it
+</code></pre>
+<p>Grant Accessibility one more time after that; every later rebuild keeps it.</p>
+<p><strong>If the keys stop working after a rebuild</strong> (i.e. still ad-hoc signed), the grant
+went stale — re-approve KeyLight in System Settings ▸ Privacy &amp; Security ▸
+Accessibility. If it's already toggled on but inert, clear the stale entry and
+re-grant:</p>
+<pre><code class="language-sh">tccutil reset Accessibility com.nicholaspsmith.KeyLight
+open ~/Applications/KeyLight.app
+</code></pre>
+<h2>Requirements</h2>
+<ul>
+<li>macOS 13+ (Apple Silicon validated on macOS 26 / Tahoe)</li>
+<li>Accessibility permission</li>
+</ul>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

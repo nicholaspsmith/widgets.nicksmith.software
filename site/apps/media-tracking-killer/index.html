@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media Tracking Killer — Menubarn</title>
+  <meta name="description" content="Periodically stops Apple&#x27;s media-analysis daemons so they stop scanning your library and burning CPU in the background. The raccoon&#x27;s eyes glow red while it is on watch.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Media Tracking Killer — Menubarn">
+  <meta property="og:description" content="Periodically stops Apple&#x27;s media-analysis daemons so they stop scanning your library and burning CPU in the background. The raccoon&#x27;s eyes glow red while it is on watch.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/media-tracking-killer.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/media-tracking-killer/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/media-tracking-killer.png" alt="The Media Tracking Killer mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Media Tracking Killer</h1>
+      <p class="lede">Periodically stops Apple's media-analysis daemons so they stop scanning your library and burning CPU in the background. The raccoon's eyes glow red while it is on watch.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/media-tracking-killer-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/media-tracking-killer.png" alt="Media Tracking Killer raccoon with red eyes, then grey with eyes closed">
+      <p>Red eyes while it is on watch, asleep while paused.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/media-tracking-killer.png" alt="The Media Tracking Killer menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>Menu-bar app that periodically stops Apple's media-analysis daemons
+(<code>mediaanalysisd</code>, <code>mediaanalysisd-access</code>, <code>photoanalysisd</code>) with SIGINT.
+Built on <a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a>.</p>
+<ul>
+<li><strong>Raccoon with red eyes</strong> — active, killing on the configured interval</li>
+<li><strong>Grey raccoon, eyes closed</strong> — paused</li>
+</ul>
+<p>Prefer the crossed-out-eye symbol? <strong>menu ▸ Icon ▸ Symbol</strong>.</p>
+<h2>Menu</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>master on/off toggle</td>
+</tr>
+<tr>
+<td>Kill Now</td>
+<td>sweep immediately</td>
+</tr>
+<tr>
+<td>Check Interval</td>
+<td>5 / 15 / 30 / 60 seconds (default 15)</td>
+</tr>
+<tr>
+<td>Processes to Kill</td>
+<td>toggle each daemon individually</td>
+</tr>
+<tr>
+<td>Start at Login</td>
+<td>SMAppService — no launchd agent</td>
+</tr>
+</tbody>
+</table>
+<p>Settings persist in <code>defaults</code> domain <code>com.nicholaspsmith.MediaTrackingKiller</code>.</p>
+<h2>Requirements</h2>
+<ul>
+<li>macOS 13+ (SMAppService), Xcode Command Line Tools</li>
+<li><a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a> checked out
+  as a <strong>sibling</strong> directory (local SPM path dependency)</li>
+</ul>
+<h2 id="install">Install</h2>
+<pre><code class="language-sh">git clone https://github.com/nicholaspsmith/StatusItemKit.git
+git clone https://github.com/nicholaspsmith/media-tracking-killer-menubar.git
+cd media-tracking-killer-menubar
+./install.sh
+</code></pre>
+<p><code>install.sh</code> builds the app, symlinks it into <code>~/Applications</code>, and launches it.</p>
+<h2>Uninstall</h2>
+<pre><code class="language-sh">osascript -e 'quit app &quot;Media Tracking Killer&quot;'
+rm &quot;$HOME/Applications/Media Tracking Killer.app&quot;
+defaults delete com.nicholaspsmith.MediaTrackingKiller
+</code></pre>
+<p>(Disable Start at Login from the menu first, or remove the entry under
+System Settings ▸ General ▸ Login Items.)</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

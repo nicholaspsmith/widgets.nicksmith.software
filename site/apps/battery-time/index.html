@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battery Time — Menubarn</title>
+  <meta name="description" content="Puts the battery time-remaining estimate back in the menu bar, where Apple removed it in 2016, and updates the instant you plug in or unplug. The battery has a face.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Battery Time — Menubarn">
+  <meta property="og:description" content="Puts the battery time-remaining estimate back in the menu bar, where Apple removed it in 2016, and updates the instant you plug in or unplug. The battery has a face.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/battery-time.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/battery-time/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/battery-time.png" alt="The Battery Time mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Battery Time</h1>
+      <p class="lede">Puts the battery time-remaining estimate back in the menu bar, where Apple removed it in 2016, and updates the instant you plug in or unplug. The battery has a face.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/battery-time-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/battery-time.png" alt="Battery Time glyph smiling at 80%, charging with a bolt, and frowning in red when low">
+      <p>Smiles at rest, a bolt while charging, frowns in red when low. Percentage and time either side are each optional.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/battery-time.png" alt="The Battery Time menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A tiny standalone macOS menu-bar app ("Battery Time.app", built on
+<a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a>) that restores
+the estimated battery <strong>time remaining</strong> to the menu bar — Apple removed the
+always-visible estimate in Sierra (2016) — with instant plug/unplug updates and
+a details dropdown.</p>
+<p>The app is the primary deliverable (see "Standalone Swift app" below). The
+original menu-bar plugin it replaced is still in the repo (<code>battery-time.5s.sh</code>,
+wired by <code>./install.sh</code>) but is retired and undocumented here.</p>
+<h2>What it shows</h2>
+<p><strong>Menu bar</strong> — a native-style <strong>battery glyph</strong> (fill proportional to charge) with
+the <strong>percentage to its left</strong> and the <strong>time remaining to its right</strong>, drawn as
+one tight image by the compiled <code>render-title</code> helper (auto-adapts to light/dark),
+so it spaces like the native icons. The battery has a little face by default
+(<strong>Battery face</strong> in the dropdown turns it off): it smiles, frowns when the
+battery is low, and steps aside for the bolt while charging. State is shown by
+the fill colour and a bolt:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Menu bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On battery</td>
+<td><img alt="on battery" src="../../img/apps/battery-time/menubar-discharging.png" /></td>
+</tr>
+<tr>
+<td>Low (≤20%)</td>
+<td><img alt="low" src="../../img/apps/battery-time/menubar-low.png" /></td>
+</tr>
+<tr>
+<td>Charging</td>
+<td><img alt="charging" src="../../img/apps/battery-time/menubar-charging.png" /></td>
+</tr>
+<tr>
+<td>High Power mode</td>
+<td><img alt="high power" src="../../img/apps/battery-time/menubar-high-power.png" /></td>
+</tr>
+<tr>
+<td>Low Power mode</td>
+<td><img alt="low power" src="../../img/apps/battery-time/menubar-low-power.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>(Examples rendered by the same <code>render-title</code> helper the menu bar uses.)</p>
+<ul>
+<li><strong>Charging</strong> — the glyph is bisected by a <strong>bolt</strong> cutout (and shows time-to-full).</li>
+<li><strong>High Power mode</strong> — the glyph fill turns <strong>blue</strong> (including while charging).</li>
+<li><strong>Low Power mode</strong> — the glyph fill turns <strong>yellow</strong> (like the native icon).</li>
+<li>On battery the fill turns <strong>red</strong> at ≤20%; time is to-empty.</li>
+<li>Independent <strong>icon / percentage / time</strong> toggles ("Menu bar shows…" in the dropdown).</li>
+<li>Right after unplug macOS takes ~30–60s to compute its estimate; until then the
+  plugin shows its own (measured discharge, or a nominal ~12 W when idle) so a
+  time appears immediately instead of <code>--:--</code>. <strong>Our stop-gap</strong> is capped at the
+  nominal (so a near-zero idle draw can't project an unrealistic 20h+); once
+  macOS has its own estimate it's shown as-is. Whole hours render compactly as <code>8h</code>.</li>
+<li>Falls back to "<code>pct% [bolt] time</code>" text if <code>render-title</code> isn't compiled. Always
+  renders something, so it keeps its position under menu-bar managers like
+  <a href="https://github.com/nicholaspsmith/menubar-curtain">Curtain</a>.</li>
+</ul>
+<p><strong>Dropdown</strong> (click the item):</p>
+<ul>
+<li>A native-style <strong>Energy Mode</strong> section at the top — Automatic / Low Power /
+  High Power, the active one checkmarked; selecting one sets <code>pmset powermode</code></li>
+<li>Battery percentage</li>
+<li>A detailed status line — <code>3 hr 14 min until empty</code>, <code>Charging - 1 hr 20 min until full</code>, <code>Fully charged</code>, …</li>
+<li>Extra stats (one <code>ioreg</code> call): health + cycle count, live power draw (V×A),
+  adapter wattage, and temperature (with a °C/°F toggle) / voltage / raw charge (mAh)</li>
+<li>24-hour usage — time on battery vs plugged in, parsed from <code>pmset -g log</code>
+  (which is slow, so it's recomputed in the background and cached ~10 min — the
+  scrape never blocks a refresh)</li>
+<li>Battery-longevity <strong>tips</strong> — a "Battery Life Tips" item (shown only when a
+  trigger fires: deep discharges, prolonged high charge, running warm, or cycle
+  count near rated life) that opens a dialog with the advice (keeps the dropdown narrow)</li>
+<li><strong>Menu bar shows…</strong> — toggle the battery icon / percentage / time independently</li>
+<li><strong>Open Battery Settings...</strong> — opens the Battery pane in System Settings</li>
+</ul>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Process Monitor — Menubarn</title>
+  <meta name="description" content="Counts the processes you own and warns before you hit kern.maxprocperuid, the limit that silently makes fork() fail in every app. The octopus grows arms and heats from green to red as you close in.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Process Monitor — Menubarn">
+  <meta property="og:description" content="Counts the processes you own and warns before you hit kern.maxprocperuid, the limit that silently makes fork() fail in every app. The octopus grows arms and heats from green to red as you close in.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/process-monitor.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/process-monitor/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/process-monitor.png" alt="The Process Monitor mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Process Monitor</h1>
+      <p class="lede">Counts the processes you own and warns before you hit <code>kern.maxprocperuid</code>, the limit that silently makes <code>fork()</code> fail in every app. The octopus grows arms and heats from green to red as you close in.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/MacOS_Process_Monitor">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/process-monitor.png" alt="Process Monitor octopus in green, yellow, orange and red, growing from four arms to eight">
+      <p>Four arms, then eight, green to red as the process count nears the cap.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/process-monitor.png" alt="The Process Monitor menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A tiny macOS menu bar app that shows the number of processes owned by the
+current user and notifies when the count climbs past 85% of
+<code>kern.maxprocperuid</code> — the limit that, once hit, causes <code>fork()</code> to start
+returning <code>EAGAIN</code> and breaks terminals, browsers, and most apps.</p>
+<p>Mirrors <code>ps -u $USER | wc -l</code> exactly so the menu bar number matches what you
+see in a shell.</p>
+<h2>What the menu bar shows</h2>
+<p>The status item shows your per-UID process count against the cap. The default is
+text — <code>&lt;count&gt;/&lt;limit&gt; (&lt;pct&gt;%)</code> in monospaced digits — but the <strong>Display</strong>
+submenu offers eight configurations: three text, four custom-drawn meters, and
+the octopus.</p>
+<p>The <strong>octopus</strong> grows and heats up with the count: four green arms below a
+quarter of the cap, four yellow below half, eight orange below three quarters,
+eight red above that.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th><code>displayMode</code></th>
+<th>Menu bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Count / limit / pct (default)</td>
+<td><code>countTotalPct</code></td>
+<td><img alt="count limit pct" src="../../img/apps/process-monitor/menubar-mode-counttotalpct.png" /></td>
+</tr>
+<tr>
+<td>Count / limit</td>
+<td><code>countTotal</code></td>
+<td><img alt="count limit" src="../../img/apps/process-monitor/menubar-mode-counttotal.png" /></td>
+</tr>
+<tr>
+<td>Percent</td>
+<td><code>percent</code></td>
+<td><img alt="percent" src="../../img/apps/process-monitor/menubar-mode-percent.png" /></td>
+</tr>
+<tr>
+<td>Gauge (needle)</td>
+<td><code>gauge</code></td>
+<td><img alt="gauge" src="../../img/apps/process-monitor/menubar-mode-gauge.png" /></td>
+</tr>
+<tr>
+<td>Arc</td>
+<td><code>arc</code></td>
+<td><img alt="arc" src="../../img/apps/process-monitor/menubar-mode-arc.png" /></td>
+</tr>
+<tr>
+<td>Pie</td>
+<td><code>pie</code></td>
+<td><img alt="pie" src="../../img/apps/process-monitor/menubar-mode-pie.png" /></td>
+</tr>
+<tr>
+<td>Wedge</td>
+<td><code>wedge</code></td>
+<td><img alt="wedge" src="../../img/apps/process-monitor/menubar-mode-wedge.png" /></td>
+</tr>
+<tr>
+<td>Octopus (grows)</td>
+<td><code>octopus</code></td>
+<td>four to eight arms, green to red — see above</td>
+</tr>
+</tbody>
+</table>
+<p>Severity is colour-coded on the icon modes — green &lt; 50%, orange &lt; 85%, red ≥ 85%
+— and the text modes turn <strong>red</strong> at/above the 85% threshold:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">30% (green)</th>
+<th style="text-align: center;">70% (orange)</th>
+<th style="text-align: center;">90% (red)</th>
+<th style="text-align: center;">text ≥ 85%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="green" src="../../img/apps/process-monitor/menubar-sev-green.png" /></td>
+<td style="text-align: center;"><img alt="orange" src="../../img/apps/process-monitor/menubar-sev-orange.png" /></td>
+<td style="text-align: center;"><img alt="red" src="../../img/apps/process-monitor/menubar-sev-red.png" /></td>
+<td style="text-align: center;"><img alt="text warning" src="../../img/apps/process-monitor/menubar-text-warning.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>The threshold notification has a 5pt hysteresis so a single bounce around the
+limit doesn't spam alerts.</p>
+<p>Click the icon for:</p>
+<ul>
+<li><strong>Sparkline</strong> of the recent count history.</li>
+<li><strong>Crash-looping</strong> submenu — names caught by the respawn-loop detector
+  (shown only when there's something to report).</li>
+<li><strong>Top spawners</strong> submenu — the processes spawning the most children;
+  click an entry to open a floating detail window for it.</li>
+<li><strong>Open Activity Monitor</strong> (⌘A).</li>
+<li><strong>Start at Login</strong> toggle.</li>
+<li><strong>Quit</strong> (⌘Q).</li>
+</ul>
+<p>The detail window auto-refreshes every 2s while open and has a manual
+Refresh button. There is no "Refresh now" in the main menu — the 5s polling
+loop makes it redundant.</p>
+<h2 id="install">Build</h2>
+<p>Requires Xcode command line tools (Swift 5.9+, macOS 13+).</p>
+<pre><code class="language-sh">./scripts/build-app.sh
+</code></pre>
+<p>Produces <code>build/ProcessMonitor.app</code>. The script wraps the Swift Package
+Manager binary in a <code>.app</code> bundle and ad-hoc <code>codesign</code>s it — the signature
+is required, because <code>UNUserNotificationCenter</code> silently drops notification
+requests from unsigned bundles and threshold alerts won't fire.</p>
+<h2>Run</h2>
+<pre><code class="language-sh">open ~/Applications/ProcessMonitor.app
+</code></pre>
+<p><code>~/Applications/ProcessMonitor.app</code> is a symlink to <code>build/ProcessMonitor.app</code>,
+so rebuilds propagate without re-copying. The icon appears in the menu bar
+(no Dock icon — <code>LSUIElement</code> is set).</p>
+<p>On first launch macOS will ask for notification permission. Approve it,
+otherwise the threshold alert can't fire.</p>
+<h2>Configuration</h2>
+<p>Tunables live at the top of <code>Sources/ProcessMonitor/main.swift</code>:</p>
+<ul>
+<li><code>warnPct</code> — threshold in percent (default <code>85</code>)</li>
+<li><code>pollSeconds</code> — refresh interval in seconds (default <code>5</code>)</li>
+</ul>
+<p>Rebuild after changing.</p>
+<h2>Start at login (optional)</h2>
+<p>Use the <strong>Start at Login</strong> toggle in the menu. It registers the app via
+<code>SMAppService.mainApp</code> (bundle-ID based) rather than a LaunchAgent —
+macOS manages the lifecycle, and the app must live in <code>/Applications</code> or
+<code>~/Applications</code> for registration to be accepted (which is what the
+<code>~/Applications</code> symlink above provides).</p>
+<p>Alternatively, add the app under System Settings → General → Login Items
+("Open at Login"). Use one method, not both, or it may launch twice at login.</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

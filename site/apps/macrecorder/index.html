@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MacRecorder — Menubarn</title>
+  <meta name="description" content="Screen recording with system audio, the one thing QuickTime can&#x27;t do, on ⌘⇧5. Recordings go straight to Downloads with no preview step. The camcorder&#x27;s record light comes on while recording.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MacRecorder — Menubarn">
+  <meta property="og:description" content="Screen recording with system audio, the one thing QuickTime can&#x27;t do, on ⌘⇧5. Recordings go straight to Downloads with no preview step. The camcorder&#x27;s record light comes on while recording.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/macrecorder.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/macrecorder/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/macrecorder.png" alt="The MacRecorder mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>MacRecorder</h1>
+      <p class="lede">Screen recording with system audio, the one thing QuickTime can't do, on ⌘⇧5. Recordings go straight to Downloads with no preview step. The camcorder's record light comes on while recording.</p>
+      <p class="chips"><span>StatusItemKit</span><span>HotkeyKit</span><span>ScreenCaptureKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/MacRecorder">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/macrecorder.png" alt="MacRecorder camcorder face idle and with its record light on">
+      <p>A camcorder with one big lens-eye. The record light on its hat comes on while recording.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/screens/macrecorder/app-icon.png" alt="The MacRecorder app icon">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A tiny standalone macOS menu-bar app that records the screen <strong>with system
+audio</strong> — the one thing QuickTime's screen recording can't do — triggered by
+<strong>⌘⇧5</strong> (the shortcut macOS normally gives the Screenshot tool). Recordings are
+written <strong>straight to <code>~/Downloads</code></strong>, skipping the post-recording preview.</p>
+<p>Built on <a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a> (the
+menu-bar shell) and <a href="https://github.com/nicholaspsmith/HotkeyKit">HotkeyKit</a>
+(the global key-tap engine), the same way as
+<a href="https://github.com/nicholaspsmith/keylight-menubar">KeyLight</a>.</p>
+<h2>The menu-bar icon</h2>
+<p>A camcorder with a face: one big lens for an eye, a viewfinder for a hat, and
+the record light on top that comes on while a recording is running. Prefer the
+plain record-dot symbol? <strong>menu ▸ Icon ▸ Symbol</strong>.</p>
+<h2>What it does</h2>
+<table>
+<thead>
+<tr>
+<th>Trigger (default)</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>⌘⇧5</code></td>
+<td>Start/stop recording the <strong>whole main display</strong></td>
+</tr>
+<tr>
+<td><code>⌘⇧6</code></td>
+<td>Start a <strong>drag-to-select region</strong> recording (Esc cancels the picker)</td>
+</tr>
+</tbody>
+</table>
+<p>While recording, <strong>stop</strong> any of three ways: press the mode's shortcut again,
+press <strong>Esc</strong>, or <strong>left-click the camcorder in the menu bar</strong>. The finished <code>.mov</code> lands
+in <code>~/Downloads</code> — no preview, no thumbnail.</p>
+<ul>
+<li><strong>System audio only</strong> — captured natively by ScreenCaptureKit. No microphone,
+  no BlackHole / virtual device, and you keep hearing audio normally.</li>
+<li>Both shortcuts are <strong>rebindable</strong> in Preferences.</li>
+</ul>
+<h2>How it works</h2>
+<ul>
+<li><strong>ScreenCaptureKit</strong> (<code>SCStream</code> + <code>SCRecordingOutput</code>, macOS 15+) captures the
+  display plus system audio (<code>capturesAudio</code> on, <code>excludesCurrentProcessAudio</code>
+  on, mic untouched) and writes the <code>.mov</code> directly — no <code>AVAssetWriter</code>. Region
+  recording crops via <code>SCStreamConfiguration.sourceRect</code>.</li>
+<li><strong>HotkeyKit</strong> owns a <code>CGEventTap</code> that intercepts ⌘⇧5 and <strong>swallows</strong> it, so
+  macOS's screenshot toolbar never appears.</li>
+<li><strong>StatusItemKit</strong> provides the menu-bar shell, the start-at-login toggle
+  (<code>SMAppService</code>), and the icon drawing.</li>
+</ul>
+<h2 id="install">Install</h2>
+<p>Requires the sibling repos <code>../StatusItemKit</code> and <code>../HotkeyKit</code> checked out
+next to this one.</p>
+<pre><code class="language-sh">./install.sh
+</code></pre>
+<p>This builds <code>MacRecorder.app</code>, symlinks it into <code>~/Applications</code>, and launches
+it. Grant <strong>Screen Recording</strong> and <strong>Accessibility</strong> when prompted (each is a
+one-time grant; the menu shows a "⚠ Grant…" item until you do).</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

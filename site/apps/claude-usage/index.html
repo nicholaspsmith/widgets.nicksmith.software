@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Usage — Menubarn</title>
+  <meta name="description" content="Claude Code plan limits and reset timers, token spend by day and model from your local transcripts, and which sessions are running, all from the menu bar. The owl&#x27;s eyelids droop as each window fills.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Claude Usage — Menubarn">
+  <meta property="og:description" content="Claude Code plan limits and reset timers, token spend by day and model from your local transcripts, and which sessions are running, all from the menu bar. The owl&#x27;s eyelids droop as each window fills.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/claude-usage.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/claude-usage/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/claude-usage.png" alt="The Claude Usage mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Claude Usage</h1>
+      <p class="lede">Claude Code plan limits and reset timers, token spend by day and model from your local transcripts, and which sessions are running, all from the menu bar. The owl's eyelids droop as each window fills.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/claude-usage-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/claude-usage.png" alt="Claude Usage owl with eyes open, half closed, nearly shut and shut">
+      <p>Left eye is the 5-hour window, right eye the weekly one. The lids droop as each fills.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/claude-usage.png" alt="The Claude Usage menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>A macOS menu-bar app for Claude Code: how much of your plan is left, when it
+resets, and which agents are running. Built on
+<a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a>.</p>
+<h2>The menu-bar icon</h2>
+<p>The icon is an <strong>owl whose eyelids droop as you use up your plan</strong>. The left eye
+is the <strong>5-hour session window</strong> — the one that actually stops your work — and
+the right eye is the <strong>7-day weekly window</strong>. Wide open at 0%, half closed at
+50%, shut at 100%; both eyes closed means both limits are spent.</p>
+<p>Prefer a plain meter? Pick a shape and colour under menu ▸ Icon: <strong>Arc</strong>,
+<strong>Gauge</strong>, <strong>Pie</strong> or <strong>Wedge</strong>, in any of seven presets or a custom colour from
+the macOS colour picker. Those track the session limit only; your colour is the
+<strong>resting</strong> colour, and the meter still goes orange at 50% and red at 80%.</p>
+<h2 id="install">Install</h2>
+<p>Part of the <a href="https://github.com/nicholaspsmith/MacOS-Dev-Environment-Setup">macOS Dev Environment
+Setup</a> suite —
+<code>./bootstrap.sh --all</code> installs it along with everything else. To install it on
+its own:</p>
+<pre><code class="language-bash">git clone https://github.com/nicholaspsmith/StatusItemKit.git ~/Code/StatusItemKit
+git clone https://github.com/nicholaspsmith/claude-usage-menubar.git ~/Code/claude-usage-menubar
+cd ~/Code/claude-usage-menubar &amp;&amp; ./install.sh
+</code></pre>
+<p><code>StatusItemKit</code> must sit <strong>beside</strong> this repo — the package depends on it by
+relative path (<code>../StatusItemKit</code>), so a clone somewhere else will not build.</p>
+<p><code>install.sh</code> builds the bundle, symlinks <code>~/Applications/Claude Usage.app</code> to
+<code>build/</code>, registers Start-at-Login, stops any running copy, and launches the new
+one. Re-run it to update; it is safe to run repeatedly.</p>
+<p><strong>Requires</strong> macOS 13+, Xcode Command Line Tools, and Claude Code signed in
+(<code>claude auth status</code> should report <code>loggedIn: true</code>).</p>
+<h2>What the menu shows</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plan (<code>Max 20x</code>, <code>Pro</code>) and the 5-hour + 7-day allowances, with reset countdowns</td>
+<td>Anthropic's OAuth usage endpoint</td>
+</tr>
+<tr>
+<td>Running Claude Code sessions and whether each is busy</td>
+<td><code>~/.claude/sessions/*.json</code></td>
+</tr>
+</tbody>
+</table>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>

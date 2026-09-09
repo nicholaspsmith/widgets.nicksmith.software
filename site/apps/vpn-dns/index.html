@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VPN &amp; DNS — Menubarn</title>
+  <meta name="description" content="One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="VPN &amp; DNS — Menubarn">
+  <meta property="og:description" content="One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/vpn-dns.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/vpn-dns/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/vpn-dns.png" alt="The VPN &amp; DNS mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>VPN &amp; DNS</h1>
+      <p class="lede">One chameleon for Mullvad VPN and Tailscale: colour for Mullvad, a tail for Tailscale, a tongue while the tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/vpn-dns-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/vpn-dns.png" alt="VPN and DNS chameleon in green with a tongue, blue with a tail, green with both, red">
+      <p>Colour is Mullvad, blue is Tailscale as the active path, the tongue is a live tunnel, the tail is Tailscale running.</p>
+    </div>
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/vpn-dns.png" alt="The VPN &amp; DNS menu">
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>One macOS menu-bar icon that consolidates <strong>Mullvad VPN</strong> and <strong>Tailscale</strong> into a
+single chameleon, with a sectioned dropdown covering both apps — and a small
+launchd watcher that keeps DNS working when Mullvad and Tailscale run at once.</p>
+<p>The primary deliverable is the standalone <strong>"VPN &amp; DNS.app"</strong> (see
+"Standalone Swift app" below). The original menu-bar plugin it replaced is
+still in the repo (<code>vpn-dns-control.5s.sh</code>, wired only by <code>./install.sh
+--swiftbar</code>) but is retired and undocumented here. Hide the two native
+Mullvad/Tailscale menu-bar icons (e.g. with
+<a href="https://github.com/nicholaspsmith/menubar-curtain">Curtain</a>) and let this be the only one.</p>
+<h2>What you see</h2>
+<p>The menu bar shows <strong>one icon</strong>: a chameleon.</p>
+<ul>
+<li>Its <strong>colour</strong> tracks Mullvad: green connected, orange connecting or
+  disconnecting, red blocked, grey off — and <strong>blue</strong> when Mullvad is off but
+  Tailscale is running, since Tailscale is then the active path.</li>
+<li>Its <strong>tongue</strong> flicks out while Mullvad is connected.</li>
+<li>Its <strong>tail</strong> hangs down while Tailscale is running.</li>
+</ul>
+<p>So: green with a tongue is Mullvad alone, blue with a tail is Tailscale alone,
+green with both is both, and a plain red one is blocked with Tailscale off.
+Prefer the original dot? <strong>menu ▸ Icon ▸ Dot</strong>.</p>
+<p>Clicking it opens a dropdown, grouped into two bold section headers:</p>
+<pre><code>Mullvad - Fair Sheep                      ← bold section header, names this
+  ●  Connected — Denver, CO                 machine's registered device
+  Split Tunnel: On                       ▸ toggle + excluded-app list
+  Fastest US (No-ID)                     ▸ top-5 cities, ✓ = current
+  Fastest Non-US (No-ID · torrent-safe)  ▸
+──────────────────────────────────────────
+Tailscale                                 ← bold section header
+  ●  accept-dns (MagicDNS): ON            → click toggles accept-dns
+  Status: Running                         → click opens the Tailscale app
+  Disconnect Tailscale
+──────────────────────────────────────────
+Start at Login
+──────────────────────────────────────────
+Quit
+</code></pre>
+<p>Section headers are bold, full-contrast, non-clickable; informational rows render
+at full contrast too (never the faint disabled gray). <strong>Status rows carry a colored
+dot</strong>: the Mullvad row reuses the menu-bar mapping (green connected · orange
+connecting/disconnecting · red blocked · grey off), and clicking it toggles the
+connection — connect goes to Mullvad's own persisted relay selection (whatever
+was last chosen via the fast-city submenus or the native app);
+the accept-dns row is green (ON) / grey (OFF), and clicking it toggles
+<code>tailscale set --accept-dns</code>. That toggle is a <em>temporary override</em> — the DNS
+watcher (below) re-asserts its mapping on the next Mullvad connect/disconnect.</p>
+<p>The two <strong>fastest-city submenus</strong> — "Fastest US (No-ID)" and "Fastest Non-US
+(No-ID · torrent-safe)" — list the top-5 cities from the candidate list ranked by
+latency. Clicking a city connects Mullvad to that city (setting the relay location
+then running <code>mullvad connect</code>); clicking the currently-active city disconnects
+(toggle behavior). A checkmark (✓) marks the city you're connected to, and a
+freshness footer at the bottom of each submenu shows when the latencies were last
+measured.</p>
+<p>Latency is re-measured by direct ICMP pings (<code>/sbin/ping</code>) when the newest
+measurement is older than <strong>12 hours</strong> (checked every 15 minutes and on
+Mullvad-off transitions): normally while Mullvad is disconnected; if Mullvad is
+connected and split tunneling is <em>already</em> on, the app temporarily adds
+<code>/sbin/ping</code> to the split-tunnel exclusions so pings bypass the tunnel, verifies
+the exclusion took (re-checking again before recording), then removes it. It
+never turns split tunneling on or off itself — connected + split-tunneling-off
+just waits for the next off-window — and it hides the transient exclusion from
+the Split Tunnel submenu (with a startup sweep so a crash can't leave it
+behind). On first run, and until a live measurement completes, the app falls
+back to seed values baked into <code>Resources/bundle/candidates.json</code>. Measurements
+persist across restarts in
+<code>~/Library/Application Support/VPNDNSMenuBar/latency.json</code>. To refresh the
+candidate list (update which cities qualify under No-ID rules):</p>
+<pre><code class="language-sh">scripts/refresh-candidates.sh
+</code></pre>
+<h2>Requirements</h2>
+<ul>
+<li>macOS 13+ (the Swift app's platform floor)</li>
+<li>Xcode Command Line Tools (Swift 5.9+) to build the app — <code>xcode-select --install</code></li>
+<li><a href="https://mullvad.net/">Mullvad VPN</a> (CLI at <code>/usr/local/bin/mullvad</code>) and
+  <a href="https://tailscale.com/">Tailscale</a> (the Mac app, not the standalone CLI)</li>
+<li>Optional: <a href="https://github.com/nicholaspsmith/menubar-curtain">Curtain</a> to hide the native icons</li>
+</ul>
+<h2 id="install">Install</h2>
+<pre><code class="language-sh">git clone https://github.com/nicholaspsmith/vpn-dns-menubar.git
+cd vpn-dns-menubar
+./install.sh
+</code></pre>
+<p><code>install.sh</code> is idempotent and:</p>
+<ol>
+<li><strong>Builds "VPN &amp; DNS.app"</strong> (<code>scripts/build-app.sh</code>), symlinks it into
+   <code>~/Applications</code> (SMAppService requires that location; the repo's <code>build/</code>
+   stays the source of truth so rebuilds propagate), and opens it.</li>
+<li>Generates the launchd plist from the template and <strong>bootstraps the DNS-sync
+   agent</strong> (<code>com.nicholassmith.mullvad-tailscale-dns</code>).</li>
+</ol>
+<p>Then use the menu's <strong>Start at Login</strong> toggle and hide the native
+Mullvad/Tailscale icons. No Accessibility/Automation permission is needed.</p>
+<h2>The DNS watcher (separate but related — the original problem)</h2>
+<p>Connecting Mullvad while Tailscale runs broke <strong>all</strong> DNS (no web, no iMessage):
+Tailscale's DNS proxy (<code>accept-dns</code> / CorpDNS) forwards every query to a resolver
+that's unreachable through Mullvad's tunnel. The fix is a launchd watcher that
+disables Tailscale <code>accept-dns</code> while Mullvad is up and restores it the moment
+Mullvad disconnects — event-driven via <code>mullvad status listen</code>, no polling.</p>
+<p>While Mullvad is connected, MagicDNS is off and the tailnet is unreachable (Mullvad
+split-tunnel can't exclude Tailscale's system network extension — tested, doesn't
+work). So reaching a tailnet host means <code>mullvad disconnect</code> → do the thing →
+<code>mullvad connect</code>.</p>
+<h2>Uninstall</h2>
+<pre><code class="language-sh"># app (toggle Start at Login off in the menu first, or remove it from Login Items)
+pkill -x VPNDNSMenuBar
+rm ~/Applications/&quot;VPN &amp; DNS.app&quot;
+
+# DNS watcher
+launchctl bootout &quot;gui/$(id -u)/com.nicholassmith.mullvad-tailscale-dns&quot;
+rm ~/Library/LaunchAgents/com.nicholassmith.mullvad-tailscale-dns.plist
+tailscale set --accept-dns=true   # restore default
+
+# then re-show the native icons (relaunch the apps, or unhide them in Curtain)
+</code></pre>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>
