@@ -80,7 +80,7 @@ save(CharacterIcon.bin(active: true), "icon-download-recycler.png")
 
 // State strips, in the order the READMEs describe them.
 strip([barn(open: false), barn(open: true)], "states-curtain.png")
-strip([CharacterIcon.key(level: 0, active: true), CharacterIcon.key(level: 0.5, active: true), CharacterIcon.key(level: 1, active: true), CharacterIcon.key(level: 0.5, active: false)], "states-keylight.png")
+strip([CharacterIcon.key(level: 0, active: true), CharacterIcon.key(level: 0.25, active: true), CharacterIcon.key(level: 0.75, active: true), CharacterIcon.key(level: 1, active: true)], "states-keylight.png")
 strip([CharacterIcon.chameleon(color: .systemGreen, tail: false, tongue: true), CharacterIcon.chameleon(color: .systemBlue, tail: true, tongue: false), CharacterIcon.chameleon(color: .systemGreen, tail: true, tongue: true), CharacterIcon.chameleon(color: .systemRed, tail: false, tongue: false)], "states-vpn-dns.png")
 strip([CharacterIcon.octopus(fraction: 0.1), CharacterIcon.octopus(fraction: 0.3), CharacterIcon.octopus(fraction: 0.6), CharacterIcon.octopus(fraction: 0.9)], "states-process-monitor.png")
 strip([BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "9:55", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 40, charging: true, lead: "40%", trailing: "1:10", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 15, charging: false, lead: "15%", trailing: "0:48", ink: white, fill: .red, face: true)], "states-battery-time.png")
