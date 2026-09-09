@@ -30,7 +30,8 @@ place(crop("clock", 127), width: 127)              // clock (real pixels)
 place(crop("controlcenter", 26), width: 26)          // Control Center (real pixels)
 rx -= 6
 func rendered(_ id: String) -> NSImage { let i = NSImage(contentsOfFile: "render/icon-\(id).png")!; let r = i.representations.first!; i.size = NSSize(width: CGFloat(r.pixelsWide) / 2, height: CGFloat(r.pixelsHigh) / 2); return i }
-for id in ["download-recycler", "media-tracking-killer", "apollo-monitor", "macrecorder", "claude-usage"] { placeIcon(rendered(id)) }
+// Download Recycler, Media Tracking Killer and MacRecorder are left off the hero bar on purpose.
+for id in ["apollo-monitor", "claude-usage"] { placeIcon(rendered(id)) }
 let battery = rendered("battery-time"); rx -= 4; place(battery, width: battery.size.width); rx -= 4
 for id in ["process-monitor", "vpn-dns", "keylight", "barn"] { placeIcon(rendered(id)) }
 NSGraphicsContext.restoreGraphicsState()
