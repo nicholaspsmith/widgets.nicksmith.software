@@ -73,7 +73,7 @@ launchd watcher that keeps DNS working when Mullvad and Tailscale run at once.</
 still in the repo (<code>vpn-dns-control.5s.sh</code>, wired only by <code>./install.sh
 --swiftbar</code>) but is retired and undocumented here. Hide the two native
 Mullvad/Tailscale menu-bar icons (e.g. with
-<a href="https://github.com/nicholaspsmith/menubar-curtain">Curtain</a>) and let this be the only one.</p>
+<a href="https://github.com/nicholaspsmith/menubar-barn">Barn</a>) and let this be the only one.</p>
 <h2>What you see</h2>
 <p>The menu bar shows <strong>one icon</strong>: a chameleon.</p>
 <ul>
@@ -140,7 +140,7 @@ candidate list (update which cities qualify under No-ID rules):</p>
 <li>Xcode Command Line Tools (Swift 5.9+) to build the app — <code>xcode-select --install</code></li>
 <li><a href="https://mullvad.net/">Mullvad VPN</a> (CLI at <code>/usr/local/bin/mullvad</code>) and
   <a href="https://tailscale.com/">Tailscale</a> (the Mac app, not the standalone CLI)</li>
-<li>Optional: <a href="https://github.com/nicholaspsmith/menubar-curtain">Curtain</a> to hide the native icons</li>
+<li>Optional: <a href="https://github.com/nicholaspsmith/menubar-barn">Barn</a> to hide the native icons</li>
 </ul>
 <h2 id="install">Install</h2>
 <pre><code class="language-sh">git clone https://github.com/nicholaspsmith/vpn-dns-menubar.git
@@ -177,7 +177,7 @@ launchctl bootout &quot;gui/$(id -u)/com.nicholassmith.mullvad-tailscale-dns&quo
 rm ~/Library/LaunchAgents/com.nicholassmith.mullvad-tailscale-dns.plist
 tailscale set --accept-dns=true   # restore default
 
-# then re-show the native icons (relaunch the apps, or unhide them in Curtain)
+# then re-show the native icons (relaunch the apps, or unhide them in Barn)
 </code></pre>
   </article>
 </section>

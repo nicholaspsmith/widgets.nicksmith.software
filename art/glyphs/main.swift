@@ -2,7 +2,7 @@ import AppKit
 
 // Renders every Menubarn menu-bar glyph straight from the apps' own drawing
 // code (CharacterIcon.swift from StatusItemKit, BatteryGlyph.swift from
-// Battery Time, the barn from Curtain — copied in by render-glyphs.sh), so the
+// Battery Time, the barn from Barn — copied in by render-glyphs.sh), so the
 // site and the READMEs show exactly what the bar shows, with no screen capture.
 //
 // Outputs, in the working directory:
@@ -41,7 +41,7 @@ func strip(_ states: [NSImage], _ path: String) {
     png(rep, path)
 }
 
-// Curtain's barn (copied from Handle.swift, barn red, 26x22)
+// Barn's handle (copied from Handle.swift, barn red, 26x22)
 func barn(open: Bool) -> NSImage {
     let image = NSImage(size: NSSize(width: 26, height: 22), flipped: false) { _ in
         let ctx = NSGraphicsContext.current!
@@ -79,7 +79,7 @@ save(CharacterIcon.raccoon(active: true), "icon-media-tracking-killer.png")
 save(CharacterIcon.bin(active: true), "icon-download-recycler.png")
 
 // State strips, in the order the READMEs describe them.
-strip([barn(open: false), barn(open: true)], "states-curtain.png")
+strip([barn(open: false), barn(open: true)], "states-barn.png")
 strip([CharacterIcon.key(level: 0, active: true), CharacterIcon.key(level: 0.25, active: true), CharacterIcon.key(level: 0.75, active: true), CharacterIcon.key(level: 1, active: true)], "states-keylight.png")
 strip([CharacterIcon.chameleon(color: .systemGreen, tail: false, tongue: true), CharacterIcon.chameleon(color: .systemBlue, tail: true, tongue: false), CharacterIcon.chameleon(color: .systemGreen, tail: true, tongue: true), CharacterIcon.chameleon(color: .systemRed, tail: false, tongue: false)], "states-vpn-dns.png")
 strip([CharacterIcon.octopus(fraction: 0.1), CharacterIcon.octopus(fraction: 0.3), CharacterIcon.octopus(fraction: 0.6), CharacterIcon.octopus(fraction: 0.9)], "states-process-monitor.png")

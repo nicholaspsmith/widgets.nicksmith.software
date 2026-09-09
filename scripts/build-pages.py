@@ -27,7 +27,7 @@ CODE = ROOT.parent
 REPOS = {
     "keylight": "keylight-menubar",
     "vpn-dns": "vpn-dns-menubar",
-    "curtain": "menubar-curtain",
+    "barn": "menubar-barn",
     "process-monitor": "MacOS_Process_Monitor",
     "battery-time": "battery-time-menubar",
     "claude-usage": "claude-usage-menubar",
@@ -48,7 +48,7 @@ SKIP_SECTIONS = {
 INSTALL_FALLBACK = {"build", "run"}
 
 CARD_RE = re.compile(
-    r'<a class="card" href="apps/(?P<id>[a-z-]+)/" data-repo="(?P<repo>[^"]+)">\s*'
+    r'<a class="card(?: card-wide)?" href="apps/(?P<id>[a-z-]+)/" data-repo="(?P<repo>[^"]+)">\s*'
     r'<div class="card-top"><img class="mascot" src="(?P<mascot>[^"]+)"[^>]*><div><h3>(?P<name>[^<]+)</h3>'
     r'<p class="chips">(?P<chips>.*?)</p></div></div>\s*'
     r'<div class="inbar"><img src="(?P<strip>[^"]+)" alt="(?P<stripalt>[^"]*)"[^>]*><p>(?P<stripdesc>[^<]*)</p></div>\s*'

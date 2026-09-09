@@ -18,8 +18,8 @@ copy vpn-dns/connected.png          vpn-dns-menubar/screenshots/menubar-connecte
 copy vpn-dns/connecting.png         vpn-dns-menubar/screenshots/menubar-connecting.png
 copy vpn-dns/blocked.png            vpn-dns-menubar/screenshots/menubar-blocked.png
 copy vpn-dns/off.png                vpn-dns-menubar/screenshots/menubar-off.png
-copy curtain/icon.png               menubar-curtain/docs/images/icon.png
-copy curtain/panel.png              menubar-curtain/docs/images/panel.png
+copy barn/icon.png                  menubar-barn/docs/images/icon.png
+copy barn/panel.png                 menubar-barn/docs/images/panel.png
 copy process-monitor/arc.png        MacOS_Process_Monitor/screenshots/menubar-mode-arc.png
 copy process-monitor/gauge.png      MacOS_Process_Monitor/screenshots/menubar-mode-gauge.png
 copy process-monitor/pie.png        MacOS_Process_Monitor/screenshots/menubar-mode-pie.png
