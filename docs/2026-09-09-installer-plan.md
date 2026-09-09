@@ -64,6 +64,122 @@ app, not a menu-bar one), Developer ID signed and notarized, shipped in a DMG.
 
 Nothing else in this plan can start until the certificate exists.
 
+## Apple gotchas checklist
+
+Things that are not obvious until they bite. Each one is a known step, not a
+risk, as long as it is on the list.
+
+**Accounts and agreements**
+- There is **no App Review** for Developer ID distribution. "Approval" here
+  means notarization: an automated malware scan that usually returns in
+  minutes. It can still reject a build (unsigned nested code, no hardened
+  runtime, no secure timestamp), and the rejection reasons only appear in
+  `notarytool log`, not in the submit output.
+- Notarization fails with "You must first sign the relevant contracts" until
+  the Program License Agreement is accepted in App Store Connect — and it has
+  to be re-accepted every time Apple revises it, which silently breaks CI.
+- The `notarytool` app-specific password needs two-factor authentication on
+  the Apple ID. Alternatively an App Store Connect API key (issuer id, key
+  id, `.p8`), which is the better fit for CI.
+- Developer ID certificates last five years; the membership is yearly. If
+  the membership lapses, existing signed builds keep running but nothing new
+  can be signed or notarized.
+- Only the **Developer ID Application** certificate is needed. Developer ID
+  Installer is for `.pkg` files, which this plan does not use.
+
+**Signing**
+- Every Mach-O in the bundle must be signed with the same identity, inside
+  out (helpers, then the app), with `--timestamp` and `--options runtime`.
+  SwiftPM executables are single binaries, so this is one `codesign` per app,
+  but the installer must also sign anything it embeds (e.g. a bundled
+  `create-dmg` background is fine, a helper tool is not unless signed).
+- Hardened runtime turns on **library validation**: the app may only load
+  libraries signed by Apple or by the same Team ID. CoreBrightness (KeyLight)
+  is Apple-signed, so it loads; anything third-party would need the
+  `disable-library-validation` entitlement, which notarization allows but
+  weakens the story. Audit each app the first time.
+- Entitlements the apps actually need are few: none of them use the sandbox,
+  so `com.apple.security.app-sandbox` must stay off. MacRecorder captures
+  system audio through ScreenCaptureKit, which is a TCC permission (Screen
+  Recording), not an entitlement.
+- The ad-hoc/self-signed identity used for local builds ("StatusItemKit
+  Local Signing") and the Developer ID identity produce different code
+  signatures, so **switching a running app to a Developer ID build resets
+  its TCC grants once** on that Mac. Afterwards, Developer ID grants persist
+  across updates because TCC keys on the designated requirement (Team ID +
+  bundle id), not on the cdhash.
+- Universal binaries: build `-arch arm64 -arch x86_64` or state Apple Silicon
+  only. macOS 13 still runs on Intel Macs, so the honest default is universal;
+  it roughly doubles binary size, which is trivial here.
+
+**Notarization and Gatekeeper**
+- **Staple** the ticket to every app (`xcrun stapler staple`) *and* to the
+  DMG. An unstapled app still passes, but only if the Mac can reach Apple at
+  first launch; stapled ones pass offline.
+- Verify with both `codesign --verify --deep --strict` and
+  `spctl --assess --type execute` before publishing; the installer should run
+  the same two checks on every zip it downloads and refuse anything that
+  fails.
+- Downloads get the quarantine attribute. That is correct and must not be
+  stripped by the installer; a notarized, stapled app launches cleanly with
+  it. A build that is only signed, or only notarized without stapling on an
+  offline Mac, shows "cannot be opened because the developer cannot be
+  verified" — that message is the test that phase 2 has actually succeeded.
+- **App Translocation:** a quarantined app launched straight from a DMG (or
+  from the Downloads folder next to other files) runs from a randomised
+  read-only path. SMAppService registration and self-update both misbehave
+  there, so the DMG must make the "drag to Applications" step unavoidable and
+  the installer should refuse to run translocated
+  (`SecTranslocateIsTranslocatedURL`) and explain why.
+- macOS 15 removed "Allow applications from anywhere" and the Control-click
+  Open shortcut for unsigned apps; the only path around Gatekeeper is a trip
+  to System Settings. This is why signing is the prerequisite rather than a
+  nicety.
+
+**Replacing and launching other apps**
+- macOS 13+ has an **App Management** TCC permission: an app that modifies or
+  replaces another app's bundle in `/Applications` or `~/Applications` is
+  blocked unless the user grants it — *except* when both are signed by the
+  same Team ID. Because the installer and all ten widgets share one Team ID,
+  installs and updates need no extra permission. Keep it that way: never
+  let the installer touch bundles it did not sign.
+- `~/Applications` needs no admin rights; `/Applications` needs an
+  authorization prompt. The plan defaults to the former.
+- **SMAppService** (Start at Login) only registers apps that live in
+  `/Applications` or `~/Applications` (or inside another app's bundle), and
+  the first registration on a Mac shows a system notification "Background
+  Items Added" naming the developer. That name is whatever the Developer ID
+  certificate says, so it will read "Nick Smith" — worth knowing so it is
+  not mistaken for a problem.
+- The installer cannot register Start at Login *for* another app; each app
+  has to do it itself, hence the `--start-at-login` launch argument in the
+  plan.
+
+**Permissions the widgets need (TCC)**
+- Accessibility: KeyLight (CGEventTap), Curtain (Manage Icons only),
+  MacRecorder (hotkey tap), Apollo Monitor (volume-key tap). The system
+  prompt appears on first use; the installer's permissions screen can only
+  deep-link to the pane, never grant.
+- Screen Recording: MacRecorder. On macOS 15+ the system **re-asks every
+  month** (and after every reboot at first) for apps that capture the
+  screen — a Sequoia behaviour, not a bug in the app. Document it on the
+  page so it does not read as breakage.
+- No usage-description strings are needed for those two, but any app that
+  sends Apple Events (VPN & DNS opens the Tailscale app) needs
+  `NSAppleEventsUsageDescription` in Info.plist or the call fails silently
+  under the hardened runtime. Audit Info.plist keys per app in phase 2.
+- Privacy manifests (`PrivacyInfo.xcprivacy`) are an App Store requirement
+  and not needed for Developer ID.
+
+**The installer itself**
+- It is a downloaded, signed, notarized app too, so everything above applies
+  to it, plus self-update: replacing its own bundle while running means
+  download → verify → swap on next launch (or relaunch via a tiny signed
+  helper), not an in-place overwrite.
+- Do not bundle the widget zips inside the installer to skip the download
+  step; that makes the installer the thing that has to be re-notarized for
+  every widget release. The manifest keeps them independent.
+
 ## Release pipeline (per app)
 
 Add to `StatusItemKit/scripts/`:
