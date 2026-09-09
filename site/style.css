@@ -180,7 +180,10 @@ footer a:hover { color: var(--fg); }
   .nav-links a:not(.btn):nth-child(2) { display: none; }
   .hero { padding-top: 64px; }
   .display { margin-top: 44px; }
-  .bezel { border-radius: 14px 14px 0 0; overflow-x: auto; }
+  /* Scrollable at readable size, opening at the RIGHT end where the widgets live:
+     an rtl scroll container starts scrolled to its inline-end. */
+  .bezel { border-radius: 14px 14px 0 0; overflow-x: auto; direction: rtl; }
+  .bezel > * { direction: ltr; }
   .bar { min-width: 900px; }
   .wallpaper { height: 90px; }
   .stats { gap: 18px; }
