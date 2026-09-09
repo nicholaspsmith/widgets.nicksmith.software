@@ -79,6 +79,61 @@ sandboxed subset (Battery Time, Download Recycler) as separate listings, with
 the rest still coming from the installer — a later decision, not part of this
 plan.
 
+### A free App Store tier, with the rest outside it?
+
+Asked 2026-09-09. Partly workable, with two hard constraints from the review
+guidelines that shape what it can be:
+
+**What can go in the store.** Only widgets that work inside the App Sandbox
+and touch nothing the sandbox forbids:
+
+| Widget | Sandbox verdict |
+|--------|-----------------|
+| Battery Time | Yes — `pmset`/IOKit reads are fine; the energy-mode toggle (needs `sudo pmset`) has to go. |
+| Download Recycler | Yes — with the `com.apple.security.files.downloads.read-write` entitlement; trashing works. |
+| Process Monitor | Probably — `sysctl` and the process table are readable; notifications are fine. Confirm the child-spawner scan in a sandboxed build. |
+| Claude Usage | Doubtful — it reads another app's Keychain item and `~/.claude` transcripts. Would need the user to grant folder access via an open panel, and the OAuth token path is out. |
+| KeyLight, MacRecorder, Apollo Monitor | No — `CGEventTap` and (KeyLight) a private framework. |
+| Barn | No — Accessibility access to other apps' status items. |
+| VPN & DNS | No — shells out to the VPN CLIs and toggles system DNS. |
+| Media Tracking Killer | No — signals system daemons. |
+
+So a store listing is three widgets, four at a stretch. The natural shape is
+**one App Store app, "Menubarn", that hosts those widgets as togglable status
+items** in a single binary, rather than three separate listings. Free.
+
+**What the store app may not do.** Two guidelines bite:
+
+- 2.4.5 (and 2.5.2): the store app cannot download, install, or launch code
+  from outside, so it cannot be the installer for the rest.
+- 3.1.1 / 3.1.3: if the outside set is sold, the store app may not link to or
+  mention that purchase — everything a store app *unlocks or upsells* must go
+  through in-app purchase, and "steering" users to an outside purchase is a
+  rejection. If the outside set is free, a low-key "More widgets at
+  widgets.nicksmith.software" link is normally accepted as informational, as
+  long as the app is not a storefront for them.
+
+Which means the word **"Premium" is the problem, not the idea**. A free store
+tier plus a free Developer ID installer for the full set, with a modest link
+between them, is fine. A free store tier that upsells a paid outside tier is
+not — the only compliant way to charge is IAP inside the store app for things
+the store app itself does, or charging on the website without the store app
+ever pointing at it.
+
+**What it costs.** Real App Review (a human, one to three days per
+submission, and again for every update); a separate sandboxed build target
+with its own bundle id per widget (a bundle id cannot live both inside and
+outside the store, and TCC grants and defaults do not carry across); App
+Store screenshots, description, privacy "nutrition label", and a privacy
+manifest; and the sandbox rework itself (Battery Time loses its energy-mode
+toggle, Claude Usage loses its token path). Roughly a week on top of the
+installer, most of it the sandbox work and review round-trips.
+
+**Recommendation:** ship the Developer ID installer first (this plan), then
+decide on a free three-widget "Menubarn" store app as a discoverability
+funnel. Keep both tiers free, name the outside set "the full set", not
+"Premium", and let the store app carry one informational link to the site.
+
 ## AI-assisted development and Apple review
 
 There is no Apple rule against AI-assisted or AI-generated code, and no risk
