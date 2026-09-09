@@ -52,6 +52,62 @@ Releases.** Considered and rejected:
 The installer itself is a StatusItemKit-free SwiftUI app (a normal windowed
 app, not a menu-bar one), Developer ID signed and notarized, shipped in a DMG.
 
+## Mac App Store: deliberately not part of this plan
+
+Two separate reasons, either of which is enough on its own.
+
+1. **The widgets cannot be sandboxed.** App Store apps must run in the App
+   Sandbox. KeyLight, MacRecorder and Apollo Monitor own a `CGEventTap`;
+   KeyLight loads the private CoreBrightness framework; Curtain reads other
+   apps' menu-bar items over the Accessibility API and drags them; Media
+   Tracking Killer sends signals to system daemons; Process Monitor reads
+   `sysctl` and other users' process tables; VPN & DNS shells out to the
+   `mullvad` and `tailscale` CLIs. Every one of those is blocked or
+   review-rejected under the sandbox (guideline 2.4.5 and the entitlement
+   list). Battery Time and Download Recycler could probably be made to fit,
+   but a two-app store listing is not the product.
+2. **The installer cannot be an App Store app.** Guideline 2.4.5(ii) forbids
+   apps that download or install other executable code, and the sandbox
+   would not let it write into `~/Applications` anyway. An App Store
+   "Menubarn" could only be a catalogue that opens the website.
+
+So the distribution path is Developer ID + notarization, which is Apple's
+supported route for exactly this kind of software (menu-bar utilities that
+need Accessibility or Screen Recording are almost all distributed this way).
+If a store presence ever matters for discoverability, the honest option is a
+sandboxed subset (Battery Time, Download Recycler) as separate listings, with
+the rest still coming from the installer — a later decision, not part of this
+plan.
+
+## AI-assisted development and Apple review
+
+There is no Apple rule against AI-assisted or AI-generated code, and no risk
+of rejection on that basis in either path:
+
+- **Notarization** is an automated scan for malware and for signing and
+  hardened-runtime problems. It does not look at source, authorship, or
+  tooling, and there is no human reviewer.
+- **App Store Review** (not used here, see above) evaluates the running
+  binary, its metadata, and guideline compliance. The App Store Review
+  Guidelines mention AI only where an app *generates content for users*
+  (1.2 user-generated content, 5.1.2 data use), and Apple does not ask how
+  the code was written. Plenty of shipping apps are built with Xcode's own
+  AI assistance.
+
+What Apple does hold the developer responsible for is the behaviour of the
+binary: entitlements, permission use, network use, and honest descriptions.
+That is a normal pre-release review, not an authorship review, and it is
+already in phase 2 as the hardened-runtime and Info.plist audit. Worth adding
+as an explicit checklist item before the first public release, because the
+installer downloads and replaces apps and should be read by a human end to
+end for that reason alone:
+
+- Read every network call and every file operation in the installer; confirm
+  it only ever writes under `~/Applications` (or the chosen folder) and only
+  bundles it verified.
+- Confirm no app phones home, and say so on the site.
+- Confirm each Info.plist usage string matches what the app actually does.
+
 ## Prerequisites (the administrative part)
 
 | Step | Notes |
@@ -277,9 +333,9 @@ Repo: `~/Code/menubarn-installer` (public, MIT, like the rest).
 
 ## Phases
 
-1. **Admin (Nick):** join the Developer Program, create the Developer ID
-   certificate, store notary credentials, record the Team ID. Nothing else
-   starts before this.
+1. **Admin (Nick):** join the Developer Program, accept the Program License
+   Agreement, create the Developer ID certificate, store notary credentials,
+   record the Team ID. Nothing else starts before this.
 2. **Signed builds:** `release-app.sh`, hardened-runtime audit, tag and
    notarize one app (KeyLight) end to end by hand. Confirm a fresh Mac opens
    it with no Gatekeeper warning.
@@ -289,7 +345,8 @@ Repo: `~/Code/menubarn-installer` (public, MIT, like the rest).
 4. **Installer app:** checklist → install → permissions, against the real
    manifest. Test on a clean user account and on a Mac with no Xcode.
 5. **Manage/updates/removal**, DMG, self-update, site buttons, rewrite of the
-   Install sections. Announce.
+   Install sections. Human end-to-end read of the installer's network and
+   file code (see "AI-assisted development and Apple review"). Announce.
 
 Rough effort after phase 1: two to three focused days for phases 2–3, three
 to four for phases 4–5.
