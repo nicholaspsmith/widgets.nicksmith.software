@@ -25,7 +25,7 @@ site is written for.
    "10 of 10 selected · 18 MB" and an **Install** button.
 3. Install runs in place: rows tick through "Downloading → Installing → Done".
    Apps land in `~/Applications` (no admin password) and launch. A final screen
-   lists what was installed, which ones need a permission (KeyLight, Curtain
+   lists what was installed, which ones need a permission (KeyLight, Barn
    and MacRecorder need Accessibility or Screen Recording) with a button that
    opens the right System Settings pane, and a **Start at Login for all**
    toggle.
@@ -58,7 +58,7 @@ Two separate reasons, either of which is enough on its own.
 
 1. **The widgets cannot be sandboxed.** App Store apps must run in the App
    Sandbox. KeyLight, MacRecorder and Apollo Monitor own a `CGEventTap`;
-   KeyLight loads the private CoreBrightness framework; Curtain reads other
+   KeyLight loads the private CoreBrightness framework; Barn reads other
    apps' menu-bar items over the Accessibility API and drags them; Media
    Tracking Killer sends signals to system daemons; Process Monitor reads
    `sysctl` and other users' process tables; VPN & DNS shells out to the
@@ -267,7 +267,7 @@ risk, as long as it is on the list.
   plan.
 
 **Permissions the widgets need (TCC)**
-- Accessibility: KeyLight (CGEventTap), Curtain (Manage Icons only),
+- Accessibility: KeyLight (CGEventTap), Barn (Manage Icons only),
   MacRecorder (hotkey tap), Apollo Monitor (volume-key tap). The system
   prompt appears on first use; the installer's permissions screen can only
   deep-link to the pane, never grant.
@@ -359,7 +359,7 @@ Repo: `~/Code/menubarn-installer` (public, MIT, like the rest).
   with the app's mascot, a sentence in plain English ("KeyLight needs
   Accessibility so it can hear the brightness keys"), and a button that opens
   `x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility`
-  (or `_ScreenCapture`). Curtain's Accessibility need is optional (Manage
+  (or `_ScreenCapture`). Barn's Accessibility need is optional (Manage
   Icons only); say so.
 - **Updates:** the installer compares manifest versions with installed
   versions. Sparkle in every app is deliberately *not* part of phase 1; the
