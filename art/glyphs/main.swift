@@ -65,6 +65,13 @@ func barn(open: Bool) -> NSImage {
 
 let white = NSColor.white
 let dim = NSColor(white: 0.62, alpha: 1)
+// Claude Usage's default colour pair (Grape & Mint): session in the left
+// pupil, weekly in the right, the same colours its menu bars are drawn in.
+let grape = NSColor(srgbRed: 0xB1 / 255, green: 0x8E / 255, blue: 0xEE / 255, alpha: 1)
+let mint = NSColor(srgbRed: 0x5F / 255, green: 0xD3 / 255, blue: 0xA6 / 255, alpha: 1)
+func owl(_ session: CGFloat, _ weekly: CGFloat) -> NSImage {
+    CharacterIcon.owl(session: session, weekly: weekly, sessionPupil: grape, weeklyPupil: mint)
+}
 
 // Representative single states (the hero bar).
 save(barn(open: false), "icon-barn.png")
@@ -72,7 +79,7 @@ save(CharacterIcon.key(level: 0.6, active: true), "icon-keylight.png")
 save(CharacterIcon.chameleon(tailscale: true, mullvad: true), "icon-vpn-dns.png")
 save(CharacterIcon.octopus(fraction: 0.3), "icon-process-monitor.png")
 save(BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "9:55", ink: white, fill: .none, face: true), "icon-battery-time.png")
-save(CharacterIcon.owl(session: 0.58, weekly: 0.33), "icon-claude-usage.png")
+save(owl(0.58, 0.33), "icon-claude-usage.png")
 save(CharacterIcon.camcorder(recording: false), "icon-macrecorder.png")
 save(CharacterIcon.apollo(level: 0.6, online: true), "icon-apollo-monitor.png")
 save(CharacterIcon.raccoon(active: true), "icon-media-tracking-killer.png")
@@ -84,7 +91,7 @@ strip([CharacterIcon.key(level: 0, active: true), CharacterIcon.key(level: 0.25,
 strip([CharacterIcon.chameleon(tailscale: false, mullvad: false), CharacterIcon.chameleon(tailscale: true, mullvad: false), CharacterIcon.chameleon(tailscale: false, mullvad: true), CharacterIcon.chameleon(tailscale: true, mullvad: true)], "states-vpn-dns.png")
 strip([CharacterIcon.octopus(fraction: 0.1), CharacterIcon.octopus(fraction: 0.3), CharacterIcon.octopus(fraction: 0.6), CharacterIcon.octopus(fraction: 0.9)], "states-process-monitor.png")
 strip([BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 40, charging: true, lead: "40%", trailing: "1:10", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 15, charging: false, lead: "", trailing: "", ink: white, fill: .red, face: true)], "states-battery-time.png")
-strip([CharacterIcon.owl(session: 0.05, weekly: 0.1), CharacterIcon.owl(session: 0.5, weekly: 0.3), CharacterIcon.owl(session: 0.9, weekly: 0.6), CharacterIcon.owl(session: 1, weekly: 1)], "states-claude-usage.png")
+strip([owl(0.05, 0.1), owl(0.5, 0.3), owl(0.9, 0.6), owl(1, 1)], "states-claude-usage.png")
 strip([CharacterIcon.camcorder(recording: false), CharacterIcon.camcorder(recording: true)], "states-macrecorder.png")
 strip([CharacterIcon.apollo(level: 0.15, online: true), CharacterIcon.apollo(level: 0.5, online: true), CharacterIcon.apollo(level: 0.9, online: true), CharacterIcon.apollo(level: 0.5, online: false)], "states-apollo-monitor.png")
 strip([CharacterIcon.raccoon(active: true), CharacterIcon.raccoon(active: false)], "states-media-tracking-killer.png")
