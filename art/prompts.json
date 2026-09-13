@@ -1,77 +1,77 @@
 {
- "style": "Cartoon mascot icon in the style of a modern app logo: bold black outlines, flat cel shading with soft highlights, bright saturated colors, big expressive friendly eyes, a single subject centered and filling most of the frame, square composition. No text, no letters, no logos, no watermark. Plain solid pure white background (#FFFFFF), nothing else behind the subject. The subject sits directly on the white background: do not draw a rounded square, tile, card, badge, frame, or drop shadow behind it.",
- "mascots": [
-  {
-   "id": "menubarn",
-   "subject": "a friendly red wooden barn with a thin dark macOS-style menu bar running along its roofline, and three tiny cartoon critters (an owl, a raccoon, and a golden retriever) peeking happily out of the hayloft window and doors"
-  },
-  {
-   "id": "keylight",
-   "subject": "a cheerful glowing keyboard key character with a warm sunbeam halo, wearing tiny sunglasses and giving a thumbs up"
-  },
-  {
-   "id": "vpn-dns",
-   "subject": "a smiling chameleon wearing a tiny blue shield badge, with its tail curled into the shape of a padlock"
-  },
-  {
-   "id": "barn",
-   "subject": "a friendly red wooden barn character with a white trim, its big double doors swung open like a smiling mouth and two round hayloft windows for eyes, a little weathervane on top, waving one wooden-plank arm"
-  },
-  {
-   "id": "process-monitor",
-   "subject": "an octopus in a hard hat juggling many tiny glowing gears with its arms while watching a round pressure gauge"
-  },
-  {
-   "id": "battery-time",
-   "subject": "a plump smiling green battery character holding up a golden pocket watch"
-  },
-  {
-   "id": "claude-usage",
-   "subject": "a cozy round brown owl wearing a tiny headset, with two huge round white eyes that are exactly half open: a heavy brown eyelid covers the top half of each eye, and below the lid a big black pupil is clearly visible in the white; the expression is sleepy but awake"
-  },
-  {
-   "id": "macrecorder",
-   "subject": "a retro camcorder character with big eyes and a glowing red recording light, holding a small microphone"
-  },
-  {
-   "id": "apollo-monitor",
-   "subject": "a friendly brushed-silver audio interface character shaped like a rounded box: its mouth is one big round silver volume knob ringed by bright green LED tick marks that curve from bottom-left over the top to bottom-right, and above the knob are two small rounded-square silver buttons as eyes with tiny black pupils"
-  },
-  {
-   "id": "media-tracking-killer",
-   "subject": "a friendly raccoon in a tiny detective trench coat holding up a red stop sign in front of a magnifying glass"
-  },
-  {
-   "id": "download-recycler",
-   "subject": "a cheerful green recycling bin character with a broom, sweeping a pile of tiny paper file icons"
-  },
-  {
-   "id": "statusitemkit",
-   "subject": "a smiling red metal toolbox character with a tiny glowing menu-bar dot floating above it like a halo"
-  },
-  {
-   "id": "hotkeykit",
-   "subject": "a grinning brass house-key character with lightning-bolt arms, pressing down a big keyboard key"
-  },
-  {
-   "id": "petdoses",
-   "subject": "a happy golden retriever wearing a tiny nurse cap, holding a calendar page with a pill on it"
-  },
-  {
-   "id": "amazon-order-hider",
-   "subject": "a smiling cardboard shipping box character wearing a magician's cape, making a paper receipt vanish with a wand"
-  },
-  {
-   "id": "python-for-js-dummies",
-   "subject": "a friendly green cartoon python snake wearing round glasses, coiled happily around a bright yellow cube while reading a small open book"
-  },
-  {
-   "id": "centrifugue",
-   "subject": "a cheerful laboratory centrifuge character with big eyes, spinning so fast that four colourful ribbons of sound (a microphone, a drum, a bass guitar, and a music note) fly out of it in different directions"
-  },
-  {
-   "id": "monitor-lizard",
-   "subject": "a chunky monitor lizard whose thick scaly body is a computer monitor: the flat screen is its torso, a stout wide lizard head with a friendly grin and a flicking forked tongue rises from the top edge of the screen (small, just enough to read as a lizard), and a long tapering scaly tail curls out from the monitor's stand along the bottom; tan-and-black spotted scales"
-  }
- ]
+  "style": "Cartoon mascot icon in the style of a modern app logo: bold black outlines, flat cel shading with soft highlights, bright saturated colors, big expressive friendly eyes, a single subject centered and filling most of the frame, square composition. No text, no letters, no logos, no watermark. Plain solid pure white background (#FFFFFF), nothing else behind the subject. The subject sits directly on the white background: do not draw a rounded square, tile, card, badge, frame, or drop shadow behind it.",
+  "mascots": [
+    {
+      "id": "menubarn",
+      "subject": "a friendly red wooden barn with a thin dark macOS-style menu bar running along its roofline, and three tiny cartoon critters (an owl, a raccoon, and a golden retriever) peeking happily out of the hayloft window and doors"
+    },
+    {
+      "id": "keylight",
+      "subject": "a cheerful glowing keyboard key character with a warm sunbeam halo, wearing tiny sunglasses and giving a thumbs up"
+    },
+    {
+      "id": "vpn-dns",
+      "subject": "a smiling chameleon wearing a tiny blue shield badge, with its tail curled into the shape of a padlock"
+    },
+    {
+      "id": "barn",
+      "subject": "a friendly red wooden barn character with a white trim, its big double doors swung open like a smiling mouth and two round hayloft windows for eyes, a little weathervane on top, waving one wooden-plank arm"
+    },
+    {
+      "id": "process-monitor",
+      "subject": "an octopus in a hard hat juggling many tiny glowing gears with its arms while watching a round pressure gauge"
+    },
+    {
+      "id": "battery-time",
+      "subject": "a plump smiling green battery character holding up a golden pocket watch"
+    },
+    {
+      "id": "claude-usage",
+      "subject": "a cozy round brown owl wearing a tiny headset, with two huge round white eyes that are exactly half open: a heavy brown eyelid covers the top half of each eye, and below the lid a big black pupil is clearly visible in the white; the expression is sleepy but awake"
+    },
+    {
+      "id": "macrecorder",
+      "subject": "a retro camcorder character with big eyes and a glowing red recording light, holding a small microphone"
+    },
+    {
+      "id": "apollo-monitor",
+      "subject": "a friendly brushed-silver audio interface character shaped like a rounded box: its mouth is one big round silver volume knob ringed by bright green LED tick marks that curve from bottom-left over the top to bottom-right, and above the knob are two small rounded-square silver buttons as eyes with tiny black pupils"
+    },
+    {
+      "id": "media-tracking-killer",
+      "subject": "a friendly raccoon in a tiny detective trench coat holding up a red stop sign in front of a magnifying glass"
+    },
+    {
+      "id": "download-recycler",
+      "subject": "a cheerful green recycling bin character with a broom, sweeping a pile of tiny paper file icons"
+    },
+    {
+      "id": "statusitemkit",
+      "subject": "a smiling red metal toolbox character with a tiny glowing menu-bar dot floating above it like a halo"
+    },
+    {
+      "id": "hotkeykit",
+      "subject": "a grinning brass house-key character with lightning-bolt arms, pressing down a big keyboard key"
+    },
+    {
+      "id": "petdoses",
+      "subject": "a happy golden retriever wearing a tiny nurse cap, holding a calendar page with a pill on it"
+    },
+    {
+      "id": "amazon-order-hider",
+      "subject": "a smiling cardboard shipping box character wearing a magician's cape, making a paper receipt vanish with a wand"
+    },
+    {
+      "id": "python-for-js-dummies",
+      "subject": "a friendly green cartoon python snake wearing round glasses, coiled happily around a bright yellow cube while reading a small open book"
+    },
+    {
+      "id": "centrifugue",
+      "subject": "a cheerful laboratory centrifuge character with big eyes, spinning so fast that four colourful ribbons of sound (a microphone, a drum, a bass guitar, and a music note) fly out of it in different directions"
+    },
+    {
+      "id": "monitor-lizard",
+      "subject": "a chunky monitor lizard whose thick scaly body is a computer monitor: the flat screen is its torso, a stout wide lizard head with a friendly grin and a flicking forked tongue rises from the top edge of the screen (small, just enough to read as a lizard), and a long tapering scaly tail curls out from the monitor's stand along the bottom; tan-and-black spotted scales"
+    }
+  ]
 }
