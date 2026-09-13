@@ -33,7 +33,7 @@ func rendered(_ id: String) -> NSImage { let i = NSImage(contentsOfFile: "render
 // Download Recycler, Media Tracking Killer and MacRecorder are left off the hero bar on purpose.
 for id in ["apollo-monitor", "claude-usage"] { placeIcon(rendered(id)) }
 let battery = rendered("battery-time"); rx -= 4; place(battery, width: battery.size.width); rx -= 4
-for id in ["process-monitor", "vpn-dns", "keylight", "barn"] { placeIcon(rendered(id)) }
+for id in ["process-monitor", "vpn-dns", "keylight", "monitor-lizard", "barn"] { placeIcon(rendered(id)) }
 NSGraphicsContext.restoreGraphicsState()
 try! rep.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: "bar/hero-bar.png"))
 print("wrote bar/hero-bar.png", rep.pixelsWide, "x", rep.pixelsHigh, "right block starts at", Int(rx))

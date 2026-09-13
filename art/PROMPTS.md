@@ -130,3 +130,11 @@ Save as `art/raw/amazon-order-hider.png`
 ```text
 Cartoon mascot icon in the style of a modern app logo: bold black outlines, flat cel shading with soft highlights, bright saturated colors, big expressive friendly eyes, a single subject centered and filling most of the frame, square composition. No text, no letters, no logos, no watermark. Plain solid pure white background (#FFFFFF), nothing else behind the subject. Subject: a smiling cardboard shipping box character wearing a magician's cape, making a paper receipt vanish with a wand.
 ```
+
+## monitor-lizard
+
+Save as `art/raw/monitor-lizard.png`
+
+```text
+Cartoon mascot icon in the style of a modern app logo: bold black outlines, flat cel shading with soft highlights, bright saturated colors, big expressive friendly eyes, a single subject centered and filling most of the frame, square composition. No text, no letters, no logos, no watermark. Plain solid pure white background (#FFFFFF), nothing else behind the subject. Subject: a chunky monitor lizard whose thick scaly body is a computer monitor: the flat screen is its torso, a stout wide lizard head with a friendly grin and a flicking forked tongue rises from the top edge of the screen (small, just enough to read as a lizard), and a long tapering scaly tail curls out from the monitor's stand along the bottom; tan-and-black spotted scales.
+```

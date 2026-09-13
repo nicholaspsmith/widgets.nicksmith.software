@@ -15,7 +15,7 @@ cp "$here/main.swift" "$work/"
 (cd "$work" && swiftc -O CharacterIcon.swift BatteryGlyph.swift main.swift -o render-glyphs 2>&1 | grep -v warning || true)
 (cd "$work" && ./render-glyphs)
 mkdir -p "$root/site/img/glyphs"
-declare -A repo=( [barn]=menubar-barn [keylight]=keylight-menubar [vpn-dns]=vpn-dns-menubar [process-monitor]=MacOS_Process_Monitor [battery-time]=battery-time-menubar [claude-usage]=claude-usage-menubar [macrecorder]=MacRecorder [apollo-monitor]=apollo-monitor-menubar [media-tracking-killer]=media-tracking-killer-menubar [download-recycler]=download-recycler-menubar )
+declare -A repo=( [barn]=menubar-barn [keylight]=keylight-menubar [vpn-dns]=vpn-dns-menubar [process-monitor]=MacOS_Process_Monitor [battery-time]=battery-time-menubar [claude-usage]=claude-usage-menubar [macrecorder]=MacRecorder [apollo-monitor]=apollo-monitor-menubar [media-tracking-killer]=media-tracking-killer-menubar [download-recycler]=download-recycler-menubar [monitor-lizard]=monitor-lizard-menubar )
 for id in "${!repo[@]}"; do
   cp "$work/states-$id.png" "$root/site/img/glyphs/$id.png"
   if [ -d "$code/${repo[$id]}/docs" ]; then cp "$work/states-$id.png" "$code/${repo[$id]}/docs/menubar-icon.png"; fi

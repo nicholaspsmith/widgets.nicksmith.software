@@ -84,6 +84,7 @@ save(CharacterIcon.camcorder(recording: false), "icon-macrecorder.png")
 save(CharacterIcon.apollo(level: 0.6, online: true), "icon-apollo-monitor.png")
 save(CharacterIcon.raccoon(active: true), "icon-media-tracking-killer.png")
 save(CharacterIcon.bin(active: true), "icon-download-recycler.png")
+save(CharacterIcon.monitorLizard(brightness: 0.8, nightShift: false), "icon-monitor-lizard.png")
 
 // State strips, in the order the READMEs describe them.
 strip([barn(open: false), barn(open: true)], "states-barn.png")
@@ -96,4 +97,5 @@ strip([CharacterIcon.camcorder(recording: false), CharacterIcon.camcorder(record
 strip([CharacterIcon.apollo(level: 0.15, online: true), CharacterIcon.apollo(level: 0.5, online: true), CharacterIcon.apollo(level: 0.9, online: true), CharacterIcon.apollo(level: 0.5, online: false)], "states-apollo-monitor.png")
 strip([CharacterIcon.raccoon(active: true), CharacterIcon.raccoon(active: false)], "states-media-tracking-killer.png")
 strip([CharacterIcon.bin(active: true), CharacterIcon.bin(active: false)], "states-download-recycler.png")
+strip([CharacterIcon.monitorLizard(brightness: 0.25, nightShift: false), CharacterIcon.monitorLizard(brightness: 0.8, nightShift: false), CharacterIcon.monitorLizard(brightness: 0.8, nightShift: true), CharacterIcon.monitorLizard(brightness: 0.8, nightShift: true, tongue: true)], "states-monitor-lizard.png")
 print("rendered")
