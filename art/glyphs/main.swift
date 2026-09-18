@@ -89,7 +89,7 @@ save(CharacterIcon.monitorLizard(brightness: 0.8, nightShift: false), "icon-moni
 // State strips, in the order the READMEs describe them.
 strip([barn(open: false), barn(open: true)], "states-barn.png")
 strip([CharacterIcon.key(level: 0, active: true), CharacterIcon.key(level: 0.25, active: true), CharacterIcon.key(level: 0.75, active: true), CharacterIcon.key(level: 1, active: true)], "states-keylight.png")
-strip([CharacterIcon.chameleon(tailscale: false, mullvad: false), CharacterIcon.chameleon(tailscale: true, mullvad: false), CharacterIcon.chameleon(tailscale: false, mullvad: true), CharacterIcon.chameleon(tailscale: true, mullvad: true)], "states-vpn-dns.png")
+strip([CharacterIcon.chameleon(tailscale: false, mullvad: false), CharacterIcon.chameleon(tailscale: true, mullvad: false), CharacterIcon.chameleon(tailscale: false, mullvad: true), CharacterIcon.chameleon(tailscale: true, mullvad: true, acceptDNS: true)], "states-vpn-dns.png")
 strip([CharacterIcon.octopus(fraction: 0.1), CharacterIcon.octopus(fraction: 0.3), CharacterIcon.octopus(fraction: 0.6), CharacterIcon.octopus(fraction: 0.9)], "states-process-monitor.png")
 strip([BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 40, charging: true, lead: "40%", trailing: "1:10", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 15, charging: false, lead: "", trailing: "", ink: white, fill: .red, face: true)], "states-battery-time.png")
 strip([owl(0.05, 0.1), owl(0.5, 0.3), owl(0.9, 0.6), owl(1, 1)], "states-claude-usage.png")
