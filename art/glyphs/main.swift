@@ -85,6 +85,7 @@ save(CharacterIcon.apollo(level: 0.6, online: true), "icon-apollo-monitor.png")
 save(CharacterIcon.raccoon(active: true), "icon-media-tracking-killer.png")
 save(CharacterIcon.bin(active: true), "icon-download-recycler.png")
 save(CharacterIcon.monitorLizard(brightness: 0.8, nightShift: false), "icon-monitor-lizard.png")
+save(CharacterIcon.house(lightsOn: 2, fanOn: true, reachable: true, configured: true), "icon-homestead.png")
 
 // State strips, in the order the READMEs describe them.
 strip([barn(open: false), barn(open: true)], "states-barn.png")
@@ -93,6 +94,10 @@ strip([CharacterIcon.chameleon(tailscale: false, mullvad: false), CharacterIcon.
 strip([CharacterIcon.octopus(fraction: 0.1), CharacterIcon.octopus(fraction: 0.3), CharacterIcon.octopus(fraction: 0.6), CharacterIcon.octopus(fraction: 0.9)], "states-process-monitor.png")
 strip([BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 40, charging: true, lead: "40%", trailing: "1:10", ink: white, fill: .none, face: true), BatteryGlyph.image(pct: 15, charging: false, lead: "", trailing: "", ink: white, fill: .red, face: true)], "states-battery-time.png")
 strip([owl(0.05, 0.1), owl(0.5, 0.3), owl(0.9, 0.6), owl(1, 1)], "states-claude-usage.png")
+strip([CharacterIcon.house(lightsOn: 0, fanOn: false, reachable: true, configured: true),
+       CharacterIcon.house(lightsOn: 1, fanOn: false, reachable: true, configured: true),
+       CharacterIcon.house(lightsOn: 2, fanOn: true, reachable: true, configured: true),
+       CharacterIcon.house(lightsOn: 0, fanOn: false, reachable: false, configured: true)], "states-homestead.png")
 strip([CharacterIcon.camcorder(recording: false), CharacterIcon.camcorder(recording: true)], "states-macrecorder.png")
 strip([CharacterIcon.apollo(level: 0.15, online: true), CharacterIcon.apollo(level: 0.5, online: true), CharacterIcon.apollo(level: 0.9, online: true), CharacterIcon.apollo(level: 0.5, online: false)], "states-apollo-monitor.png")
 strip([CharacterIcon.raccoon(active: true), CharacterIcon.raccoon(active: false)], "states-media-tracking-killer.png")

@@ -100,6 +100,14 @@ relative path (<code>../StatusItemKit</code>), so a clone somewhere else will no
 one. Re-run it to update; it is safe to run repeatedly.</p>
 <p><strong>Requires</strong> macOS 13+, Xcode Command Line Tools, and Claude Code signed in
 (<code>claude auth status</code> should report <code>loggedIn: true</code>).</p>
+<h3>Start at Login</h3>
+<p>Toggle it from the menu, or from the shell:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/Claude Usage.app/Contents/MacOS/ClaudeUsage&quot; --login on       # or: off, status
+</code></pre>
+<p><code>install.sh</code> already runs this for you. Start at Login is <code>SMAppService.mainApp</code>, which can only
+register the calling process's own bundle — so nothing outside the app can turn
+it on, and the command has to be the <em>installed</em> binary. A bare <code>--login</code>, or
+<code>--login status</code>, only reports the current state and changes nothing.</p>
 <h2>What the menu shows</h2>
 <table>
 <thead>

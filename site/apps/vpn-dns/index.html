@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VPN &amp; DNS — Menubarn</title>
-  <meta name="description" content="One chameleon for Mullvad VPN and Tailscale: green with spots and a looped tail when Tailscale is on, green in a yellow hard hat with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta name="description" content="One chameleon for Mullvad VPN and Tailscale, where each connection is one thing the animal does: the tail wraps the branch for Tailscale, the tongue shoots out and wraps it for Mullvad, and the eye turns green when accept-dns is on. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
   <meta name="theme-color" content="#0b0d12">
   <meta property="og:type" content="article">
   <meta property="og:title" content="VPN &amp; DNS — Menubarn">
-  <meta property="og:description" content="One chameleon for Mullvad VPN and Tailscale: green with spots and a looped tail when Tailscale is on, green in a yellow hard hat with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
+  <meta property="og:description" content="One chameleon for Mullvad VPN and Tailscale, where each connection is one thing the animal does: the tail wraps the branch for Tailscale, the tongue shoots out and wraps it for Mullvad, and the eye turns green when accept-dns is on. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.">
   <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/vpn-dns.png">
   <meta property="og:url" content="https://widgets.nicksmith.software/apps/vpn-dns/">
   <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
     <div>
       <p class="eyebrow">A Menubarn widget</p>
       <h1>VPN &amp; DNS</h1>
-      <p class="lede">One chameleon for Mullvad VPN and Tailscale: green with spots and a looped tail when Tailscale is on, green in a yellow hard hat with its tongue out when the Mullvad tunnel is up. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.</p>
+      <p class="lede">One chameleon for Mullvad VPN and Tailscale, where each connection is one thing the animal does: the tail wraps the branch for Tailscale, the tongue shoots out and wraps it for Mullvad, and the eye turns green when accept-dns is on. A sectioned menu covers both, and a watcher keeps DNS working when the two run at once.</p>
       <p class="chips"><span>StatusItemKit</span></p>
       <div class="cta">
         <a class="btn btn-primary" href="#install">Install</a>
@@ -53,8 +53,8 @@
   <div class="app-glance">
     <div class="glance">
       <h2>In the menu bar</h2>
-      <img class="glance-strip" src="../../img/glyphs/vpn-dns.png" alt="VPN and DNS chameleon on its stick: brown, green and spotted with a looped tail, green in a yellow hard hat with its tongue out, then both">
-      <p>Brown on its stick when idle, green when connected. Spots and a looped tail for Tailscale, a hard hat and a tongue for Mullvad, all of it for both.</p>
+      <img class="glance-strip" src="../../img/glyphs/vpn-dns.png" alt="VPN and DNS chameleon on its branch: resting olive, then with its tail wrapped round the branch, its tongue wrapped round the branch ahead, and both with a green eye">
+      <p>Olive at rest, green when connected. The tail wraps the branch for Tailscale, the tongue wraps it for Mullvad, and the eye turns green for MagicDNS.</p>
     </div>
     <div class="glance">
       <h2>The menu</h2>
@@ -76,50 +76,63 @@ Mullvad/Tailscale menu-bar icons (e.g. with
 <a href="https://github.com/nicholaspsmith/menubar-barn">Barn</a>) and let this be the only one.</p>
 <h2>What you see</h2>
 <p>The menu bar shows <strong>one icon</strong>: a chameleon.</p>
-<p>It hangs onto a brown stick and is brown like the stick while nothing is
-connected.</p>
+<p>It sits on a branch in resting olive while nothing is connected. Each connection
+is one thing the animal does, so the icon says all of them at once:</p>
 <ul>
-<li><strong>Tailscale running:</strong> it turns green with dark spots (Tailscale's own icon
-  is dots) and its tail curls into a loop. Otherwise the tail is a long, open
-  curl.</li>
-<li><strong>Mullvad connected:</strong> it turns green, puts on a yellow hard hat with a headlamp, and its tongue flicks out.</li>
-<li><strong>Both:</strong> green with spots, hard hat on, tongue out, tail looped.</li>
-<li>Mullvad's in-between states still show as the dot's colours: orange while
-  connecting or disconnecting, red when blocked.</li>
+<li><strong>Tailscale running:</strong> the tail comes down off its back and wraps around the
+  branch. Otherwise it stays rolled up behind it.</li>
+<li><strong>Mullvad connected:</strong> the tongue shoots out and wraps the branch ahead of it.</li>
+<li><strong>accept-dns (MagicDNS) on:</strong> its eye turns green.</li>
+<li><strong>Either VPN up:</strong> the body turns green; Mullvad's in-between states still
+  borrow the dot's colours — orange while connecting or disconnecting, red when
+  blocked.</li>
 </ul>
 <p>Prefer the original dot? <strong>menu ▸ Icon ▸ Dot</strong>.</p>
 <p>Clicking it opens a dropdown, grouped into two bold section headers:</p>
 <pre><code>Mullvad - Fair Sheep                      ← bold section header, names this
-  ●  Connected — Denver, CO                 machine's registered device
+  ●  Connection — Denver, CO · ON           machine's registered device
   Split Tunnel: On                       ▸ toggle + excluded-app list
   Fastest US (No-ID)                     ▸ top-5 cities, ✓ = current
   Fastest Non-US (No-ID · torrent-safe)  ▸
+  Fastest Canada (No-ID)                 ▸
+  Fastest Latin America (No-ID)          ▸
+  Fastest Europe (No-ID)                 ▸
+  Fastest Asia (No-ID)                   ▸
+  Fastest Lists                          ▸ tick/untick which of the above show
 ──────────────────────────────────────────
 Tailscale                                 ← bold section header
-  ●  accept-dns (MagicDNS): ON            → click toggles accept-dns
-  Status: Running                         → click opens the Tailscale app
-  Disconnect Tailscale
+  ●  Connection · ON                      → click brings Tailscale up/down
+  ●  MagicDNS — accept-dns · ON           → click toggles accept-dns
+  Open Tailscale App
 ──────────────────────────────────────────
 Start at Login
 ──────────────────────────────────────────
 Quit
 </code></pre>
 <p>Section headers are bold, full-contrast, non-clickable; informational rows render
-at full contrast too (never the faint disabled gray). <strong>Status rows carry a colored
-dot</strong>: the Mullvad row reuses the menu-bar mapping (green connected · orange
-connecting/disconnecting · red blocked · grey off), and clicking it toggles the
-connection — connect goes to Mullvad's own persisted relay selection (whatever
-was last chosen via the fast-city submenus or the native app);
-the accept-dns row is green (ON) / grey (OFF), and clicking it toggles
-<code>tailscale set --accept-dns</code>. That toggle is a <em>temporary override</em> — the DNS
+at full contrast too (never the faint disabled gray).</p>
+<p><strong>The three status rows are the same row three times</strong>: a coloured dot, a name,
+whatever detail that row has, and the state as the last word — <code>Connection —
+Denver, CO · ON</code> — and clicking any of them toggles what it describes. Mullvad's
+dot reuses the menu-bar mapping (green connected · orange connecting or
+disconnecting · red blocked · grey off) and its in-between states say so rather
+than being forced into ON/OFF; connecting goes to Mullvad's own persisted relay
+selection (whatever was last chosen via the fast-city submenus or the native
+app). Tailscale's dot is green running · orange starting or needs-login · grey
+otherwise, and its row brings the backend up or down. The MagicDNS row is green
+(ON) / grey (OFF) and toggles <code>tailscale set --accept-dns</code>. That toggle is a <em>temporary override</em> — the DNS
 watcher (below) re-asserts its mapping on the next Mullvad connect/disconnect.</p>
-<p>The two <strong>fastest-city submenus</strong> — "Fastest US (No-ID)" and "Fastest Non-US
-(No-ID · torrent-safe)" — list the top-5 cities from the candidate list ranked by
-latency. Clicking a city connects Mullvad to that city (setting the relay location
-then running <code>mullvad connect</code>); clicking the currently-active city disconnects
-(toggle behavior). A checkmark (✓) marks the city you're connected to, and a
-freshness footer at the bottom of each submenu shows when the latencies were last
-measured.</p>
+<p>The <strong>fastest-city submenus</strong> list the top-5 cities from the candidate list
+ranked by latency. "Fastest US" and "Fastest Non-US" are the two halves of the
+pool; "Canada", "Latin America" (Mexico, Colombia, Peru, Chile, Argentina),
+"Europe" (Albania, Serbia, Ukraine) and "Asia" (Thailand, Philippines) slice the
+non-US half by region — Israel is only in Non-US. Every list is No-ID: the pool
+never contains a city outside it. Clicking a city connects Mullvad to that city
+(setting the relay location then running <code>mullvad connect</code>); clicking the
+currently-active city disconnects (toggle behavior). A checkmark (✓) marks the
+city you're connected to, and a freshness footer at the bottom of each submenu
+shows when the latencies were last measured. <strong>Fastest Lists ▸</strong> ticks/unticks
+which submenus appear (all six by default; the choice persists).</p>
 <p>Latency is re-measured by direct ICMP pings (<code>/sbin/ping</code>) when the newest
 measurement is older than <strong>12 hours</strong> (checked every 15 minutes and on
 Mullvad-off transitions): normally while Mullvad is disconnected; if Mullvad is

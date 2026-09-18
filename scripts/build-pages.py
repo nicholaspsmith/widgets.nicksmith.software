@@ -36,6 +36,7 @@ REPOS = {
     "media-tracking-killer": "media-tracking-killer-menubar",
     "download-recycler": "download-recycler-menubar",
     "monitor-lizard": "monitor-lizard-menubar",
+    "homestead": "home-assistant-menubar",
 }
 
 # README sections that are for contributors, not users.

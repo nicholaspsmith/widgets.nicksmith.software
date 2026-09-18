@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homestead — Menubarn</title>
+  <meta name="description" content="Home Assistant in the menu bar. Pick one of your dashboards and the rest of the menu becomes its devices: switches, brightness and warmth sliders, a colour picker, fan speed, blind position, thermostat set points and media transport — none of which close the menu.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Homestead — Menubarn">
+  <meta property="og:description" content="Home Assistant in the menu bar. Pick one of your dashboards and the rest of the menu becomes its devices: switches, brightness and warmth sliders, a colour picker, fan speed, blind position, thermostat set points and media transport — none of which close the menu.">
+  <meta property="og:image" content="https://widgets.nicksmith.software/img/mascots/homestead.png">
+  <meta property="og:url" content="https://widgets.nicksmith.software/apps/homestead/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="../../" aria-label="Menubarn home">
+    <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
+    <span>Menubarn</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="../../#widgets">All widgets</a>
+    <a class="btn btn-ghost" href="#install">Install</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero app-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="app-hero-inner">
+    <img class="app-mascot" src="../../img/mascots/homestead.png" alt="The Homestead mascot" width="220" height="220">
+    <div>
+      <p class="eyebrow">A Menubarn widget</p>
+      <h1>Homestead</h1>
+      <p class="lede">Home Assistant in the menu bar. Pick one of your dashboards and the rest of the menu becomes its devices: switches, brightness and warmth sliders, a colour picker, fan speed, blind position, thermostat set points and media transport — none of which close the menu.</p>
+      <p class="chips"><span>StatusItemKit</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install">Install</a>
+        <a class="btn btn-ghost" href="https://github.com/nicholaspsmith/home-assistant-menubar">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section app-section">
+  <div class="app-glance">
+    <div class="glance">
+      <h2>In the menu bar</h2>
+      <img class="glance-strip" src="../../img/glyphs/homestead.png" alt="Homestead's cottage with dark windows, one window lit, both lit with a fan turning, then hollow when Home Assistant is unreachable">
+      <p>Windows light with the number of lights on, a fan turns in one while a fan runs, and the house goes hollow when Home Assistant is out of reach.</p>
+    </div>
+    
+  </div>
+</section>
+
+<section class="section app-section">
+  <article class="prose">
+<p>Home Assistant in the menu bar. The first row picks a dashboard; the rest of the
+menu is that dashboard's devices — switches you can flip, sliders for
+brightness, warmth, fan speed, blind position and target temperature, a colour
+picker for bulbs that have one, and transport controls for media players.
+Nothing closes the menu, so you can turn three things on without opening it
+three times.</p>
+<p>The glyph carries the state: windows light with the number of lights on in the
+selected dashboard, a fan turns in the right window while any fan is running,
+and the house goes hollow when Home Assistant cannot be reached — which is
+normal on a laptop that sometimes sits behind a VPN.</p>
+<h2 id="install">Install</h2>
+<pre><code class="language-bash">./install.sh
+</code></pre>
+<p>That builds <code>Homestead.app</code> and symlinks it into <code>~/Applications</code>, then opens
+it. First run:</p>
+<ol>
+<li>In Home Assistant: your profile ▸ Security ▸ <strong>Long-lived access tokens</strong> ▸
+   Create token. Copy it.</li>
+<li>Homestead ▸ <strong>Connection…</strong>, enter the server URL
+   (<code>http://homeassistant.local:8123</code>), paste the token, press <strong>Test</strong>, then
+   <strong>Save</strong>.</li>
+<li>Optional: <strong>Dashboards…</strong> to choose which of your dashboards the picker
+   offers and drag them into the order you want. <strong>Start at Login</strong> is in the
+   same menu.</li>
+</ol>
+<p>The token is stored in your login Keychain.</p>
+<h2>What appears in the menu</h2>
+<p>Homestead reads the dashboard's own configuration, so what you get is whatever
+that dashboard shows — it does not invent a layout of its own. Cards are walked
+structurally rather than by type, so stacks, grids, sections, conditionals and
+custom cards all work.</p>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Row shows</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>light</code></td>
+<td>brightness %</td>
+<td>switch, brightness slider, warmth slider (tunable white), colour swatch (colour bulbs)</td>
+</tr>
+<tr>
+<td><code>switch</code>, <code>input_boolean</code>, <code>remote</code></td>
+<td>—</td>
+<td>switch</td>
+</tr>
+<tr>
+<td><code>fan</code></td>
+<td>speed %</td>
+<td>switch, speed slider snapped to the fan's own step</td>
+</tr>
+<tr>
+<td><code>cover</code></td>
+<td>Open/Closed/Opening, position</td>
+<td>open/close, position slider where supported</td>
+</tr>
+<tr>
+<td><code>climate</code>, <code>water_heater</code></td>
+<td>reading → target</td>
+<td>switch, temperature slider over the entity's own band</td>
+</tr>
+<tr>
+<td><code>media_player</code></td>
+<td>what's playing, or the source</td>
+<td>power, volume, ⏮ ⏯ ⏭ — each only if the player reports it</td>
+</tr>
+<tr>
+<td><code>sensor</code>, <code>binary_sensor</code></td>
+<td>value and unit</td>
+<td>read-only, and hidden unless <strong>Show Sensors</strong> is ticked</td>
+</tr>
+</tbody>
+</table>
+<p>Anything else — automations, scenes, scripts — is skipped rather than shown as
+a row that cannot do anything.</p>
+<h2>Licence</h2>
+<p>MIT. See <a href="https://github.com/nicholaspsmith/home-assistant-menubar/blob/main/LICENSE">LICENSE</a>.</p>
+  </article>
+</section>
+</main>
+
+<footer>
+  <p>Made by <a href="https://nicksmith.software">Nick Smith</a></p>
+</footer>
+
+</body>
+</html>
