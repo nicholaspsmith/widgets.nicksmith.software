@@ -82,7 +82,9 @@ is one thing the animal does, so the icon says all of them at once:</p>
 <li><strong>Tailscale running:</strong> the tail comes down off its back and wraps around the
   branch. Otherwise it stays rolled up behind it.</li>
 <li><strong>Mullvad connected:</strong> the tongue shoots out and wraps the branch ahead of it.</li>
-<li><strong>accept-dns (MagicDNS) on:</strong> its eye turns green.</li>
+<li><strong>accept-dns (MagicDNS) on:</strong> its eye turns cyan — the same cyan the row's
+  dot takes. Not green: the body is already green whenever a VPN is up, and a
+  green iris inside it was a state you had to hunt for.</li>
 <li><strong>Either VPN up:</strong> the body turns green; Mullvad's in-between states still
   borrow the dot's colours — orange while connecting or disconnecting, red when
   blocked.</li>
@@ -102,7 +104,7 @@ is one thing the animal does, so the icon says all of them at once:</p>
 ──────────────────────────────────────────
 Tailscale                                 ← bold section header
   ●  Connection · ON                      → click brings Tailscale up/down
-  ●  MagicDNS — accept-dns · ON           → click toggles accept-dns
+  ◍  MagicDNS — accept-dns · ON           → click toggles accept-dns (cyan dot)
   Open Tailscale App
 ──────────────────────────────────────────
 Start at Login
@@ -119,8 +121,9 @@ disconnecting · red blocked · grey off) and its in-between states say so rathe
 than being forced into ON/OFF; connecting goes to Mullvad's own persisted relay
 selection (whatever was last chosen via the fast-city submenus or the native
 app). Tailscale's dot is green running · orange starting or needs-login · grey
-otherwise, and its row brings the backend up or down. The MagicDNS row is green
-(ON) / grey (OFF) and toggles <code>tailscale set --accept-dns</code>. That toggle is a <em>temporary override</em> — the DNS
+otherwise, and its row brings the backend up or down. The MagicDNS row is cyan
+(ON) / grey (OFF) — matching the chameleon's eye — and toggles
+<code>tailscale set --accept-dns</code>. That toggle is a <em>temporary override</em> — the DNS
 watcher (below) re-asserts its mapping on the next Mullvad connect/disconnect.</p>
 <p>The <strong>fastest-city submenus</strong> list the top-5 cities from the candidate list
 ranked by latency. "Fastest US" and "Fastest Non-US" are the two halves of the
@@ -172,6 +175,14 @@ cd vpn-dns-menubar
 </ol>
 <p>Then use the menu's <strong>Start at Login</strong> toggle and hide the native
 Mullvad/Tailscale icons. No Accessibility/Automation permission is needed.</p>
+<h3>Start at Login</h3>
+<p>Toggle it from the menu, or from the shell:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/VPN &amp; DNS.app/Contents/MacOS/VPNDNSMenuBar&quot; --login on       # or: off, status
+</code></pre>
+<p><code>install.sh</code> already runs this for you. Start at Login is <code>SMAppService.mainApp</code>, which can only
+register the calling process's own bundle — so nothing outside the app can turn
+it on, and the command has to be the <em>installed</em> binary. A bare <code>--login</code>, or
+<code>--login status</code>, only reports the current state and changes nothing.</p>
 <h2>The DNS watcher (separate but related — the original problem)</h2>
 <p>Connecting Mullvad while Tailscale runs broke <strong>all</strong> DNS (no web, no iMessage):
 Tailscale's DNS proxy (<code>accept-dns</code> / CorpDNS) forwards every query to a resolver

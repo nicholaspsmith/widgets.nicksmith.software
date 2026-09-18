@@ -56,7 +56,10 @@
       <img class="glance-strip" src="../../img/glyphs/homestead.png" alt="Homestead's cottage with dark windows, one window lit, both lit with a fan turning, then hollow when Home Assistant is unreachable">
       <p>Windows light with the number of lights on, a fan turns in one while a fan runs, and the house goes hollow when Home Assistant is out of reach.</p>
     </div>
-    
+    <div class="glance">
+      <h2>The menu</h2>
+      <img class="glance-shot" src="../../img/menus/homestead.png" alt="The Homestead menu">
+    </div>
   </div>
 </section>
 
@@ -88,6 +91,12 @@ it. First run:</p>
    same menu.</li>
 </ol>
 <p>The token is stored in your login Keychain.</p>
+<p><strong>On the address you give it:</strong> <code>http://</code> means the WebSocket runs unencrypted,
+and the token is the first frame sent on it — so anyone on the network path can
+read it. That is fine over your own LAN or a Tailscale/WireGuard tunnel, which
+is what most people point this at. Over the open internet, use <code>https://</code> (Nabu
+Casa or your own reverse proxy); the app follows the scheme you give it and
+never silently upgrades or downgrades.</p>
 <h2>What appears in the menu</h2>
 <p>Homestead reads the dashboard's own configuration, so what you get is whatever
 that dashboard shows — it does not invent a layout of its own. Cards are walked

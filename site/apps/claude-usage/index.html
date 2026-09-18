@@ -98,8 +98,9 @@ relative path (<code>../StatusItemKit</code>), so a clone somewhere else will no
 <p><code>install.sh</code> builds the bundle, symlinks <code>~/Applications/Claude Usage.app</code> to
 <code>build/</code>, registers Start-at-Login, stops any running copy, and launches the new
 one. Re-run it to update; it is safe to run repeatedly.</p>
-<p><strong>Requires</strong> macOS 13+, Xcode Command Line Tools, and Claude Code signed in
-(<code>claude auth status</code> should report <code>loggedIn: true</code>).</p>
+<p><strong>Requires</strong> macOS 13+ and Xcode Command Line Tools. Sign in either by having
+Claude Code signed in (<code>claude auth status</code> reports <code>loggedIn: true</code>) or from
+the app's own menu — see below.</p>
 <h3>Start at Login</h3>
 <p>Toggle it from the menu, or from the shell:</p>
 <pre><code class="language-sh">&quot;$HOME/Applications/Claude Usage.app/Contents/MacOS/ClaudeUsage&quot; --login on       # or: off, status
@@ -127,6 +128,24 @@ it on, and the command has to be the <em>installed</em> binary. A bare <code>--l
 </tr>
 </tbody>
 </table>
+<h2>Signing in</h2>
+<p>The app reads Claude Code's login when there is one. When there is not — or it
+has lapsed, or you would rather the app kept itself signed in — <strong>Sign In with
+Claude…</strong> (under Settings, or at the top of the menu when the numbers are
+missing) runs the same claude.ai authorisation Claude Code does, from the
+menu bar: the browser opens on the consent page, the app listens on a
+localhost port for it to come back, trades the code for tokens, and reads the
+plan from the profile endpoint. It asks for the <code>user:profile</code> scope only —
+enough to read usage, nothing that could run inference or mint API keys.</p>
+<p>That login is the app's own. It is stored in its own Keychain item
+(<code>Claude Usage-credentials</code>, written and read through <code>/usr/bin/security</code> so
+it never prompts), refreshed by the app ten minutes before it lapses, and
+preferred over Claude Code's when both exist. Claude Code's credential is never
+written to or refreshed — refresh tokens rotate, and refreshing the CLI's
+would sign the CLI out. <strong>Sign Out of Claude Usage</strong> forgets the app's own
+login and goes back to reading Claude Code's.</p>
+<p>The flow borrows Claude Code's OAuth client id, the way the community tooling
+around Claude Code does; Anthropic could change or restrict it.</p>
   </article>
 </section>
 </main>
