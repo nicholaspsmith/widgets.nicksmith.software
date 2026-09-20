@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Copyright (c) 2026 Nicholas Smith
+
 """Build one detail page per widget from its card on index.html plus its README.
 
     python3 scripts/build-pages.py

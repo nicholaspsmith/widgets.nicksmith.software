@@ -1,3 +1,9 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+// Copyright (c) 2026 Nicholas Smith
+
 import AppKit
 // Compose a 2x macOS menu bar (1000pt x 28pt) from real icon crops + rendered text, with a notch in the middle.
 let W: CGFloat = 1000, H: CGFloat = 28, S: CGFloat = 2

@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Copyright (c) 2026 Nicholas Smith
+
 """Generate the Menubarn hero/social scene with Gemini (16:9), using the same key handling as gen_icons.
 
 Usage: python3 art/gen_scene.py [variant-count]   -> art/raw/scene-<n>.png
