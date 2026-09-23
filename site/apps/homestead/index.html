@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Homestead — Menubarn</title>
   <meta name="description" content="Home Assistant in the menu bar. Pick one of your dashboards and the rest of the menu becomes its devices: switches, brightness and warmth sliders, a colour picker, fan speed, blind position, thermostat set points and media transport — none of which close the menu.">
   <meta name="theme-color" content="#0b0d12">
@@ -17,6 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="../../style.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="../../nav.js" defer></script>
 </head>
 <body>
 
@@ -25,7 +27,11 @@
     <img src="../../img/mascots/menubarn.png" alt="" width="28" height="28">
     <span>Menubarn</span>
   </a>
-  <nav class="nav-links" aria-label="Sections">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+    <svg class="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <nav class="nav-links" id="site-menu" aria-label="Sections">
     <a href="../../#widgets">All widgets</a>
     <a class="btn btn-ghost" href="#install">Install</a>
   </nav>
