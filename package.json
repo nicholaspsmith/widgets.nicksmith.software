@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
+    "predeploy": "python3 scripts/stamp-assets.py",
     "deploy": "wrangler deploy",
     "check": "bash scripts/check-links.sh"
   },
