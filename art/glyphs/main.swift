@@ -12,7 +12,7 @@ import AppKit
 // site and the READMEs show exactly what the bar shows, with no screen capture.
 //
 // Outputs, in the working directory:
-//   icon-<id>.png         one representative state at 2x (feeds compose-bar.swift)
+//   icon-<id>.png         the state each icon showed on the real bar when the hero was last matched, at 2x (feeds compose-bar.swift)
 //   states-<id>.png       every state side by side on a menu-bar-dark pill, 3x (site + READMEs)
 
 func png(_ rep: NSBitmapImageRep, _ path: String) {
@@ -82,16 +82,16 @@ func owl(_ session: CGFloat, _ weekly: CGFloat) -> NSImage {
 // Representative single states (the hero bar).
 save(barn(open: false), "icon-barn.png")
 save(CharacterIcon.key(level: 0.6, active: true), "icon-keylight.png")
-save(CharacterIcon.chameleon(tailscale: true, mullvad: true), "icon-vpn-dns.png")
-save(CharacterIcon.octopus(fraction: 0.3), "icon-process-monitor.png")
-save(BatteryGlyph.image(pct: 80, charging: false, lead: "80%", trailing: "9:55", ink: white, fill: .none, face: true), "icon-battery-time.png")
-save(owl(0.58, 0.33), "icon-claude-usage.png")
+save(CharacterIcon.chameleon(tailscale: true, mullvad: false, acceptDNS: true), "icon-vpn-dns.png")
+save(CharacterIcon.octopus(fraction: 0.13), "icon-process-monitor.png")
+save(BatteryGlyph.image(pct: 80, charging: false, lead: "", trailing: "", ink: white, fill: .none, face: true), "icon-battery-time.png")
+save(owl(0.42, 0.41), "icon-claude-usage.png")
 save(CharacterIcon.camcorder(recording: false), "icon-macrecorder.png")
 save(CharacterIcon.apollo(level: 0.6, online: true), "icon-apollo-monitor.png")
 save(CharacterIcon.raccoon(active: true), "icon-media-tracking-killer.png")
 save(CharacterIcon.bin(active: true), "icon-download-recycler.png")
 save(CharacterIcon.monitorLizard(brightness: 0.8, nightShift: false), "icon-monitor-lizard.png")
-save(CharacterIcon.house(lightsOn: 2, fanOn: true, reachable: true, configured: true), "icon-homestead.png")
+save(CharacterIcon.house(lightsOn: 5, fanOn: true, reachable: true, configured: true), "icon-homestead.png")
 
 // State strips, in the order the READMEs describe them.
 strip([barn(open: false), barn(open: true)], "states-barn.png")
