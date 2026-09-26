@@ -71,12 +71,10 @@ func barn(open: Bool) -> NSImage {
 
 let white = NSColor.white
 let dim = NSColor(white: 0.62, alpha: 1)
-// Claude Usage's default colour pair (Grape & Mint): session in the left
-// pupil, weekly in the right, the same colours its menu bars are drawn in.
-let grape = NSColor(srgbRed: 0xB1 / 255, green: 0x8E / 255, blue: 0xEE / 255, alpha: 1)
-let mint = NSColor(srgbRed: 0x5F / 255, green: 0xD3 / 255, blue: 0xA6 / 255, alpha: 1)
+// Claude Usage's owl: lids droop with the session window, whites and pupils
+// redden with the weekly one.
 func owl(_ session: CGFloat, _ weekly: CGFloat) -> NSImage {
-    CharacterIcon.owl(session: session, weekly: weekly, sessionPupil: grape, weeklyPupil: mint)
+    CharacterIcon.owl(session: session, weekly: weekly)
 }
 
 // Representative single states (the hero bar).

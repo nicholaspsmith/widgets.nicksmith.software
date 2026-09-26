@@ -73,8 +73,10 @@
   <article class="prose">
 <p>A tiny standalone macOS menu-bar app that remaps <strong>Ctrl + the brightness keys</strong>
 to <strong>keyboard-backlight</strong> up/down — a drop-in replacement for using
-BetterTouchTool just for that. The menu-bar icon shows the current backlight
-level, and a small preferences window lets you rebind the two controls.</p>
+BetterTouchTool just for that — and gives <strong>third-party keyboards</strong> the
+brightness and volume keys an Apple keyboard has on F1/F2 and F10–F12. The
+menu-bar icon shows the current backlight level, and a small preferences window
+lets you rebind the two backlight controls.</p>
 <p>Built on <a href="https://github.com/nicholaspsmith/StatusItemKit">StatusItemKit</a> (the
 menu-bar shell) and <a href="https://github.com/nicholaspsmith/HotkeyKit">HotkeyKit</a>
 (the global key-tap engine).</p>
@@ -89,11 +91,15 @@ menu-bar shell) and <a href="https://github.com/nicholaspsmith/HotkeyKit">Hotkey
 <tbody>
 <tr>
 <td><code>Ctrl + Brightness Up</code></td>
-<td>keyboard backlight up one step (1/16)</td>
+<td>keyboard backlight up one step</td>
 </tr>
 <tr>
 <td><code>Ctrl + Brightness Down</code></td>
 <td>keyboard backlight down one step</td>
+</tr>
+<tr>
+<td><code>Ctrl + F2</code> / <code>Ctrl + F1</code></td>
+<td>the same, for keyboards whose F1/F2 are plain F-keys</td>
 </tr>
 </tbody>
 </table>
@@ -101,6 +107,107 @@ menu-bar shell) and <a href="https://github.com/nicholaspsmith/HotkeyKit">Hotkey
 change. The menu-bar gauge tracks the level; rebind either control in
 Preferences. The menu's first row is a brightness slider, so the backlight can
 also be set by dragging.</p>
+<h3>Dimmer than macOS allows</h3>
+<p>Above 1/16 each press is a 1/16 step. Below that the steps are 1/16, then
+macOS's own lowest level (1/128), then eight more KeyLight adds under it, then
+off:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>PWM duty (ticks of 960)</th>
+<th>vs. macOS's lowest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1/128 (macOS floor)</td>
+<td>54</td>
+<td>1×</td>
+</tr>
+<tr>
+<td>KeyLight</td>
+<td>36, 24, 16, 11, 7, 4, 2</td>
+<td>⅔× … 1/27×</td>
+</tr>
+<tr>
+<td>KeyLight lowest</td>
+<td>1</td>
+<td>1/54×</td>
+</tr>
+</tbody>
+</table>
+<p>macOS clamps every brightness above zero to its floor, so KeyLight holds
+these levels itself. CoreBrightness fades every change through every duty on
+the way, and KeyLight steers that fade: slow fades toward off and toward the
+floor, turning back as the PWM register reaches the target (read from the IO
+registry). Each rung reads its target 85–98% of the time. The hardware PWM
+stays at 25 kHz throughout, so nothing flickers.</p>
+<p>While a KeyLight level is held:</p>
+<ul>
+<li><strong>Backlight Timeout still works.</strong> macOS's own timeout is suspended and
+  KeyLight runs it instead with the same setting, fading out after that long
+  without input and back in on the next.</li>
+<li><strong>Auto-brightness is paused</strong> so ambient light can't move the level, and
+  turned back on when you leave the KeyLight range or quit.</li>
+<li><strong>A change made elsewhere wins.</strong> If Control Center or another app sets
+  the backlight, KeyLight lets go and follows it.</li>
+<li><strong>Lid closed or asleep</strong> pauses the hold. It resumes on wake.</li>
+<li><strong>Quitting</strong> leaves the keys at macOS's floor with everything restored,
+  and the level comes back at the next launch. After a crash, the next launch
+  restores the timeout and auto-brightness first.</li>
+</ul>
+<p>The cost is one CoreBrightness call and one flip of its <code>KeyboardBacklightMuted</code>
+preference each time the fade turns, about once or twice a second at the lowest
+rungs. None of this runs at macOS's own levels. Macs whose PWM KeyLight cannot
+read skip the extra steps.</p>
+<h3>Third-party keyboards</h3>
+<p>An Apple keyboard's F1/F2 and F10–F12 send brightness and volume as media
+keys. A generic Bluetooth or USB board sends them as plain F1–F12, so macOS
+does nothing with them (or worse: F11 hides every window). With <strong>menu ▸
+Function Keys on Other Keyboards</strong> on (the default), KeyLight sends the media
+key an Apple keyboard would have sent:</p>
+<table>
+<thead>
+<tr>
+<th>Key on a non-Apple keyboard</th>
+<th>Becomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F1</code> / <code>F2</code></td>
+<td>brightness down / up</td>
+</tr>
+<tr>
+<td><code>F10</code></td>
+<td>mute</td>
+</tr>
+<tr>
+<td><code>F11</code> / <code>F12</code></td>
+<td>volume down / up</td>
+</tr>
+</tbody>
+</table>
+<p>Holding a key repeats. The remap posts the same system event the Apple key
+does, so macOS shows its own HUD and whatever normally handles brightness
+keys — the built-in display, or a DDC tool like BetterDisplay for an external
+monitor — handles these too. KeyLight never talks to a display or the audio
+device itself.</p>
+<p>It applies only to keyboards that are not Apple's (identified per event from
+the sending HID device), so <code>fn + F1</code> on the MacBook keyboard is still F1. The
+Mission Control, Spotlight and media-transport keys are deliberately not
+remapped; those stay whatever the board sends.</p>
+<h3>Backlight timeout</h3>
+<p><strong>menu ▸ Backlight Timeout</strong> sets how long the keys stay lit with nobody
+typing before macOS turns them off — 1, 2, 3, 4 or 5 seconds, 1, 2, 5 or 10
+minutes, or Never. The next keypress lights them again. This is the same
+setting as System Settings ▸ Keyboard ▸ <em>Turn keyboard backlight off after …
+of inactivity</em>, which only offers 5 seconds and up; macOS accepts any delay,
+so KeyLight just offers the short ones too. The checkmark shows the live
+value, so a change made in System Settings is reflected here (a value KeyLight
+doesn't offer, like 30 seconds, checks nothing). A choice made in KeyLight is
+re-applied at each launch, since System Settings can overwrite it.</p>
 <h2>The menu-bar icon</h2>
 <p>A keycap in sunglasses whose rays light up clockwise with the backlight, shown
 above at 0%, 25%, 75% and 100%: grey when the backlight is off, all eight rays
@@ -110,12 +217,28 @@ backlight is on. It also turns grey when KeyLight cannot change the backlight
 each row previews itself, and the choice persists across launches.</p>
 <h2>How it works</h2>
 <ul>
-<li><strong>HotkeyKit</strong> owns a <code>CGEventTap</code> that intercepts the brightness media keys,
-  matches them against the bindings, and swallows the matched event.</li>
+<li><strong>HotkeyKit</strong> owns a <code>CGEventTap</code> that intercepts the brightness media keys
+  and the F-keys, matches them against the bindings, and swallows the matched
+  event (and its key-up). It reads the sending device from the event so the
+  F-key remaps can be scoped to non-Apple keyboards, and treats the <code>fn</code> flag
+  as implied on F-keys — macOS sets it on every F-key event from every
+  keyboard, fn key or not.</li>
+<li><strong>MediaKeyPoster</strong> sends the Apple media-key event (press + release) at the
+  HID level for the F-key remaps. A posted event has no sending device, so the
+  tap never sees its own output as a third-party keystroke.</li>
 <li><strong>CoreBrightness</strong> (<code>KeyboardBrightnessClient</code>, private framework) reads/sets
-  the built-in keyboard backlight. The keyboard id is discovered via
+  the built-in keyboard backlight and its inactivity timeout
+  (<code>setIdleDimTime:forKeyboard:</code>, seconds, 0 = never). The keyboard id is discovered via
   <code>copyKeyboardBacklightIDs</code> (never hardcoded). When the backlight is suppressed
-  (clamshell / lid closed), sets no-op — the app handles this gracefully.</li>
+  (clamshell / lid closed), sets no-op — the app handles this gracefully.
+  Sub-floor levels use <code>setBrightness:fadeSpeed:commit:forKeyboard:</code> (the
+  "speed" is the fade's length in ms, about 32.8 s at most, and a fade to the
+  target already being faded to is ignored), <code>suspendIdleDimming:forKeyboard:</code>
+  and <code>enableAutoBrightness:forKeyboard:</code>.</li>
+<li><strong>The PWM</strong> is read from the <code>kbd-backlight</code> IO registry entry
+  (<code>high-period</code>, <code>enabled</code>); its floor comes from the
+  <code>nits-to-pwm-percentage-part2</code> calibration table. Design notes:
+  <code>docs/superpowers/specs/2026-09-25-sub-floor-backlight-design.md</code>.</li>
 </ul>
 <h2 id="install">Install</h2>
 <pre><code class="language-sh">./install.sh
@@ -138,6 +261,14 @@ re-grant:</p>
 <pre><code class="language-sh">tccutil reset Accessibility com.nicholaspsmith.KeyLight
 open ~/Applications/KeyLight.app
 </code></pre>
+<h3>Start at Login</h3>
+<p>Toggle it from the menu, or from the shell:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/KeyLight.app/Contents/MacOS/KeyLight&quot; --login on       # or: off, status
+</code></pre>
+<p><code>install.sh</code> already runs this for you. Start at Login is <code>SMAppService.mainApp</code>, which can only
+register the calling process's own bundle — so nothing outside the app can turn
+it on, and the command has to be the <em>installed</em> binary. A bare <code>--login</code>, or
+<code>--login status</code>, only reports the current state and changes nothing.</p>
 <h2>Requirements</h2>
 <ul>
 <li>macOS 13+ (Apple Silicon validated on macOS 26 / Tahoe)</li>
