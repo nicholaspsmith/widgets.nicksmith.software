@@ -15,10 +15,10 @@ here="$(cd "$(dirname "$0")" && pwd)"
 root="$(cd "$here/../.." && pwd)"
 code="$(cd "$root/.." && pwd)"
 work="$here/build"; mkdir -p "$work"
-cp "$code/StatusItemKit/Sources/StatusItemKit/CharacterIcon.swift" "$work/"
+cp "$code/StatusItemKit/Sources/StatusItemKit/CharacterIcon.swift" "$code/StatusItemKit/Sources/StatusItemKit/MeterColor.swift" "$work/"
 cp "$code/battery-time-menubar/Sources/BatteryTime/BatteryGlyph.swift" "$work/"
 cp "$here/main.swift" "$work/"
-(cd "$work" && swiftc -O CharacterIcon.swift BatteryGlyph.swift main.swift -o render-glyphs 2>&1 | grep -v warning || true)
+(cd "$work" && swiftc -O CharacterIcon.swift MeterColor.swift BatteryGlyph.swift main.swift -o render-glyphs 2>&1 | grep -v warning || true)
 (cd "$work" && ./render-glyphs)
 mkdir -p "$root/site/img/glyphs"
 declare -A repo=( [barn]=menubar-barn [keylight]=keylight-menubar [vpn-dns]=vpn-dns-menubar [process-monitor]=MacOS_Process_Monitor [battery-time]=battery-time-menubar [claude-usage]=claude-usage-menubar [macrecorder]=MacRecorder [apollo-monitor]=apollo-monitor-menubar [media-tracking-killer]=media-tracking-killer-menubar [download-recycler]=download-recycler-menubar [monitor-lizard]=monitor-lizard-menubar [homestead]=home-assistant-menubar )
