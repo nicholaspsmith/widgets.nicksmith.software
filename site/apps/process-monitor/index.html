@@ -196,11 +196,18 @@ otherwise the threshold alert can't fire.</p>
 </ul>
 <p>Rebuild after changing.</p>
 <h2>Start at login (optional)</h2>
-<p>Use the <strong>Start at Login</strong> toggle in the menu. It registers the app via
-<code>SMAppService.mainApp</code> (bundle-ID based) rather than a LaunchAgent —
-macOS manages the lifecycle, and the app must live in <code>/Applications</code> or
-<code>~/Applications</code> for registration to be accepted (which is what the
-<code>~/Applications</code> symlink above provides).</p>
+<p>Use the <strong>Start at Login</strong> toggle in the menu, or the command line:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/ProcessMonitor.app/Contents/MacOS/ProcessMonitor&quot; --login on   # or: off, status
+</code></pre>
+<p>Either way it registers the app via <code>SMAppService.mainApp</code> (bundle-ID based)
+rather than a LaunchAgent — macOS manages the lifecycle, and the app must live
+in <code>/Applications</code> or <code>~/Applications</code> for registration to be accepted (which is
+what the <code>~/Applications</code> symlink above provides). That is also why the command
+has to be the <em>installed</em> binary: <code>SMAppService</code> can only ever register the
+calling process's own bundle, so nothing outside the app can turn it on.</p>
+<p>A bare <code>--login</code>, or <code>--login status</code>, only reports the current state and
+changes nothing. There is no <code>install.sh</code> in this repo, so after a
+<code>./scripts/build-app.sh</code> on a fresh machine, run the command above yourself.</p>
 <p>Alternatively, add the app under System Settings → General → Login Items
 ("Open at Login"). Use one method, not both, or it may launch twice at login.</p>
   </article>

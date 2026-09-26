@@ -87,7 +87,7 @@ dropdown: brightness, contrast, resolution and Night Shift. Nothing else.</p>
 <tbody>
 <tr>
 <td><strong>Brightness</strong></td>
-<td>Sets the monitor's own backlight over DDC/CI, like pressing its front buttons. Also works for the built-in screen.</td>
+<td>Sets the monitor's own backlight over DDC/CI, like pressing its front buttons. Also works for the built-in screen, and for displays macOS dims itself (TVs over HDMI, Apple and some USB-C monitors — the ones the keyboard brightness keys already work on).</td>
 </tr>
 <tr>
 <td><strong>Contrast</strong></td>
@@ -102,6 +102,14 @@ dropdown: brightness, contrast, resolution and Night Shift. Nothing else.</p>
 <td>Toggle it, and set the warmth.</td>
 </tr>
 <tr>
+<td><strong>XDR Brightness</strong></td>
+<td>Built-in XDR panel only: brightens it past its normal maximum. Off at every launch. See below.</td>
+</tr>
+<tr>
+<td><strong>Brightness Keys</strong></td>
+<td>The keyboard's brightness keys step the main monitor's brightness, sixteen steps across the range, by the same route as its Brightness row. Needs Accessibility once.</td>
+</tr>
+<tr>
 <td><strong>✓ / ⏳ / ✗ line</strong></td>
 <td>Whether Night Shift works on that display. See below.</td>
 </tr>
@@ -110,6 +118,40 @@ dropdown: brightness, contrast, resolution and Night Shift. Nothing else.</p>
 <p>Sliders apply live as you drag. Nothing is polled on a timer, and nothing you
 set is stored by the app: the monitor keeps its own brightness and macOS keeps
 the rest.</p>
+<h2>Brightness keys</h2>
+<p>macOS only lets the brightness keys dim the built-in panel. With <strong>Brightness
+Keys</strong> on (the default), Monitor Lizard catches the plain brightness keys and,
+when the main display is an external monitor it can drive, steps that
+monitor's brightness instead and eats the key; the gecko flicks its tongue as
+the change lands. A monitor that refuses DDC but that macOS can dim itself is
+stepped through DisplayServices, the same route its Brightness row uses. When
+the main display is the built-in panel, or a monitor nothing can drive, the
+key passes through untouched and macOS does what it always did. Holding a key repeats. <code>Ctrl</code> + brightness is never touched, so
+<a href="https://github.com/nicholaspsmith/keylight-menubar">KeyLight</a> still gets it
+for the keyboard backlight.</p>
+<p>It listens for the media-key event an Apple keyboard sends, which is also what
+KeyLight posts for F1/F2 on a third-party keyboard, so both kinds of keyboard
+work without the two apps knowing about each other.</p>
+<p>An event tap needs <strong>Accessibility</strong>: grant it when prompted, or later from the
+menu's "⚠ Grant Accessibility…" row. The app is signed with the same stable
+local identity as the other Menubarn apps, so the grant survives rebuilds.</p>
+<h2>XDR brightness</h2>
+<p>On a MacBook Pro with an XDR panel, <strong>XDR Brightness</strong> (under the built-in
+display) pushes the whole screen past the normal 500-nit ceiling, up to twice
+that, using the headroom the panel keeps for HDR. <strong>Boost</strong> sets how far. It
+works the way BrightIntosh does: a single pixel of HDR white in the panel's
+top-left corner switches it into HDR mode, and once the panel reports the
+headroom a gamma table lifts ordinary white into it.</p>
+<p>A leftover gamma table is what scrambles colours after wake with other apps,
+so Monitor Lizard only keeps one on the panel while it is safe: it is removed
+before sleep, when the displays go to sleep, on quit, whenever the display
+setup changes (lid closed, a monitor plugged in), and put back only once
+things have settled. After each removal the app reads the table back to make
+sure the boost is really gone. It is never applied to external displays, it
+is off again every time the app starts, and by default it switches itself off
+when you unplug (<strong>Off on Battery</strong>).</p>
+<p>Side effects: HDR video can clip its brightest highlights while it is on, and
+the panel draws more power and runs warmer.</p>
 <h2>Why Night Shift may be off on your monitor</h2>
 <p>macOS turns Night Shift off on any display it thinks is a <strong>television</strong>, and
 it thinks that about plenty of ordinary monitors plugged in over HDMI. Monitor
@@ -142,7 +184,13 @@ talking to one monitor at the same time interfere with each other.</p>
 <li><strong>Brightness and contrast</strong> go over DDC/CI through <code>IOAVService</code>, the private
   IOKit interface every Apple Silicon DDC tool uses. One serial queue per
   display, every read confirmed by checksum.</li>
-<li><strong>Built-in screen brightness</strong> uses DisplayServices.</li>
+<li><strong>Built-in screen brightness</strong> uses DisplayServices, as does any external
+  display macOS says it can dim itself (<code>DisplayServicesCanChangeBrightness</code>)
+  once a DDC read has failed on it. That is the route the keyboard keys take.</li>
+<li><strong>Brightness keys</strong> come through a <code>CGEventTap</code> from
+  <a href="https://github.com/nicholaspsmith/HotkeyKit">HotkeyKit</a>, bound to the two
+  brightness media keys with no modifiers. They step the main display over
+  whichever route its Brightness row uses, DDC or DisplayServices.</li>
 <li><strong>Night Shift</strong> uses CoreBrightness.</li>
 <li><strong>The "is this a TV?" flag</strong> comes from CoreDisplay, the same source
   <code>system_profiler</code> reads.</li>

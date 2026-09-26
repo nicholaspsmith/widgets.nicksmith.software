@@ -129,6 +129,14 @@ next to this one.</p>
 <p>This builds <code>MacRecorder.app</code>, symlinks it into <code>~/Applications</code>, and launches
 it. Grant <strong>Screen Recording</strong> and <strong>Accessibility</strong> when prompted (each is a
 one-time grant; the menu shows a "⚠ Grant…" item until you do).</p>
+<h3>Start at Login</h3>
+<p>Toggle it from the menu, or from the shell:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/MacRecorder.app/Contents/MacOS/MacRecorder&quot; --login on       # or: off, status
+</code></pre>
+<p><code>install.sh</code> already runs this for you. Start at Login is <code>SMAppService.mainApp</code>, which can only
+register the calling process's own bundle — so nothing outside the app can turn
+it on, and the command has to be the <em>installed</em> binary. A bare <code>--login</code>, or
+<code>--login status</code>, only reports the current state and changes nothing.</p>
   </article>
 </section>
 </main>

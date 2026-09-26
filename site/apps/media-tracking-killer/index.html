@@ -124,6 +124,14 @@ cd media-tracking-killer-menubar
 ./install.sh
 </code></pre>
 <p><code>install.sh</code> builds the app, symlinks it into <code>~/Applications</code>, and launches it.</p>
+<h3>Start at Login</h3>
+<p>Toggle it from the menu, or from the shell:</p>
+<pre><code class="language-sh">&quot;$HOME/Applications/Media Tracking Killer.app/Contents/MacOS/MediaTrackingKiller&quot; --login on       # or: off, status
+</code></pre>
+<p><code>install.sh</code> already runs this for you. Start at Login is <code>SMAppService.mainApp</code>, which can only
+register the calling process's own bundle — so nothing outside the app can turn
+it on, and the command has to be the <em>installed</em> binary. A bare <code>--login</code>, or
+<code>--login status</code>, only reports the current state and changes nothing.</p>
 <h2>Uninstall</h2>
 <pre><code class="language-sh">osascript -e 'quit app &quot;Media Tracking Killer&quot;'
 rm &quot;$HOME/Applications/Media Tracking Killer.app&quot;
